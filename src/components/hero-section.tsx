@@ -19,6 +19,7 @@ const techStack: Array<{ label: string; icon: IconName }> = [
   { label: 'PostgreSQL', icon: 'postgresql' },
   { label: 'TanStack', icon: 'tanstack' },
   { label: 'Prisma', icon: 'prisma' },
+  { label: 'Supabase', icon: 'supabase' },
   { label: 'Laravel', icon: 'laravel' },
   { label: 'CodeIgniter', icon: 'codeigniter' },
   { label: 'Next.js', icon: 'nextjs2' },
