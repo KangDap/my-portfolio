@@ -11,6 +11,9 @@ type DOMMotionProps<T extends HTMLElement = HTMLElement> = Omit<
   'ref'
 > & { ref?: React.Ref<T> };
 
+// Cache for motion components to prevent recreation during render
+const motionComponentCache = new Map<React.ElementType, React.ElementType>();
+
 type WithAsChild<Base extends object> =
   | (Base & { asChild: true; children: React.ReactElement })
   | (Base & { asChild?: false | undefined });
@@ -19,19 +22,6 @@ type SlotProps<T extends HTMLElement = HTMLElement> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: any;
 } & DOMMotionProps<T>;
-
-const motionComponentCache = new Map<React.ElementType, React.ElementType>();
-
-function getMotionComponent(type: React.ElementType): React.ElementType {
-  if (isMotionComponent(type)) return type;
-
-  const cached = motionComponentCache.get(type);
-  if (cached) return cached;
-
-  const created = motion.create(type);
-  motionComponentCache.set(type, created);
-  return created;
-}
 
 function mergeRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
@@ -76,9 +66,25 @@ function Slot<T extends HTMLElement = HTMLElement>({
   ref,
   ...props
 }: SlotProps<T>) {
-  if (!React.isValidElement(children)) return null;
+  const isAlreadyMotion =
+    typeof children.type === 'object' &&
+    children.type !== null &&
+    isMotionComponent(children.type);
 
-  const Base = getMotionComponent(children.type as React.ElementType);
+  const childType = children.type as React.ElementType;
+  let Base: React.ElementType;
+
+  if (isAlreadyMotion) {
+    Base = childType;
+  } else {
+    // Get or create motion component from cache
+    if (!motionComponentCache.has(childType)) {
+      motionComponentCache.set(childType, motion.create(childType));
+    }
+    Base = motionComponentCache.get(childType)!;
+  }
+
+  if (!React.isValidElement(children)) return null;
 
   const { ref: childRef, ...childProps } = children.props as AnyProps;
 
