@@ -11,27 +11,29 @@ import {
 import { cn } from '@/lib/utils';
 import { BookUser, Folders, House } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 const navItems = [
   {
     label: 'Home',
-    href: '#home',
+    href: '/',
     icon: House,
   },
   {
     label: 'Projects',
-    href: '#projects',
+    href: '/projects',
     icon: Folders,
   },
   {
     label: 'Contacts',
-    href: '#contacts',
+    href: '/contacts',
     icon: BookUser,
   },
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDock, setShowDock] = useState(false);
@@ -48,7 +50,12 @@ export function Navbar() {
               <Link
                 href={item.href}
                 aria-label={item.label}
-                className="flex size-full items-center justify-center"
+                className={cn(
+                  'flex size-full items-center justify-center transition-colors duration-300',
+                  pathname === item.href
+                    ? 'text-foreground font-semibold'
+                    : 'text-muted-foreground hover:text-white',
+                )}
               >
                 <item.icon className="size-5" />
               </Link>
@@ -59,7 +66,7 @@ export function Navbar() {
           </Tooltip>
         </DockIcon>
       )),
-    [],
+    [pathname],
   );
 
   const mobileLinks = useMemo(
@@ -69,13 +76,18 @@ export function Navbar() {
           key={item.label}
           href={item.href}
           onClick={() => setIsMenuOpen(false)}
-          className="flex items-center gap-3 text-base font-medium text-foreground transition-all duration-300 ease-in-out hover:scale-110"
+          className={cn(
+            'flex items-center gap-3 text-base font-medium transition-all duration-300 ease-in-out',
+            pathname === item.href
+              ? 'bg-muted text-foreground font-semibold rounded px-3 py-2'
+              : 'text-muted-foreground hover:text-foreground hover:scale-110',
+          )}
         >
           <item.icon className="size-5" />
           <span>{item.label}</span>
         </Link>
       )),
-    [],
+    [pathname],
   );
 
   useEffect(() => {
@@ -203,7 +215,12 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-all duration-300 ease-in-out hover:scale-110 hover:text-foreground"
+                  className={cn(
+                    'inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 ease-in-out',
+                    pathname === item.href
+                      ? 'bg-muted text-foreground font-semibold rounded-lg px-4 py-2 hover:scale-110'
+                      : 'text-muted-foreground hover:text-foreground hover:scale-110',
+                  )}
                 >
                   <item.icon className="size-4" />
                   <span>{item.label}</span>
