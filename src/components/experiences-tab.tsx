@@ -195,7 +195,6 @@ function useAnimatedTabHeight(activeTab: TabKey) {
         outgoing,
         {
           opacity: 0,
-          y: -8,
           duration: 0.16,
           pointerEvents: 'none',
         },
@@ -204,10 +203,9 @@ function useAnimatedTabHeight(activeTab: TabKey) {
 
       timeline.fromTo(
         incoming,
-        { opacity: 0, y: 8 },
+        { opacity: 0 },
         {
           opacity: 1,
-          y: 0,
           duration: 0.24,
           pointerEvents: 'auto',
         },
