@@ -11,7 +11,7 @@ import {
 import { cn } from '@/lib/utils';
 import { BookUser, Folders, House } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const navItems = [
   {
@@ -34,6 +34,10 @@ const navItems = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showDock, setShowDock] = useState(false);
+  const [dockLeaving, setDockLeaving] = useState(false);
+  const dockLeaveTimerRef = useRef<number | null>(null);
+  const showDockTimerRef = useRef<number | null>(null);
 
   const dockLinks = useMemo(
     () =>
@@ -87,28 +91,91 @@ export function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    // clear any pending timers first
+    if (dockLeaveTimerRef.current !== null) {
+      window.clearTimeout(dockLeaveTimerRef.current);
+      dockLeaveTimerRef.current = null;
+    }
+    if (showDockTimerRef.current !== null) {
+      window.clearTimeout(showDockTimerRef.current);
+      showDockTimerRef.current = null;
+    }
+
+    if (isScrolled) {
+      // schedule showing the dock on next tick to avoid synchronous setState in effect
+      showDockTimerRef.current = window.setTimeout(() => {
+        setShowDock(true);
+        setDockLeaving(false);
+        showDockTimerRef.current = null;
+      }, 0);
+    } else if (!showDock) {
+      // schedule clearing leaving flag on next tick to avoid sync setState in effect
+      showDockTimerRef.current = window.setTimeout(() => {
+        setDockLeaving(false);
+        showDockTimerRef.current = null;
+      }, 0);
+    } else {
+      // schedule setting leaving flag on next tick then start leave timeout
+      showDockTimerRef.current = window.setTimeout(() => {
+        setDockLeaving(true);
+        showDockTimerRef.current = null;
+      }, 0);
+      dockLeaveTimerRef.current = window.setTimeout(() => {
+        setShowDock(false);
+        setDockLeaving(false);
+        dockLeaveTimerRef.current = null;
+      }, 300);
+    }
+
+    return () => {
+      if (dockLeaveTimerRef.current !== null) {
+        window.clearTimeout(dockLeaveTimerRef.current);
+        dockLeaveTimerRef.current = null;
+      }
+      if (showDockTimerRef.current !== null) {
+        window.clearTimeout(showDockTimerRef.current);
+        showDockTimerRef.current = null;
+      }
+    };
+  }, [isScrolled, showDock]);
+
   return (
     <TooltipProvider>
       <nav
         aria-label="Primary"
         className={cn(
-          'z-50 transition-all duration-500 ease-in-out',
-          isScrolled
+          'z-50 transition-all duration-600 ease-in-out',
+          isScrolled || showDock
             ? 'fixed bottom-4 left-1/2 -translate-x-1/2'
             : 'absolute top-0 left-0 w-full',
         )}
       >
-        {isScrolled ? (
+        {showDock ? (
           <>
             {/* Desktop: Magic UI Dock */}
-            <div className="hidden md:flex">
+            <div
+              className={cn(
+                'hidden md:flex transition-all duration-600 ease-in-out',
+                dockLeaving
+                  ? '-translate-x-full opacity-0'
+                  : 'translate-x-0 opacity-100',
+              )}
+            >
               <Dock iconMagnification={60} iconDistance={100}>
                 {dockLinks}
               </Dock>
             </div>
 
             {/* Mobile: Hamburger in floating pill */}
-            <div className="flex md:hidden justify-center">
+            <div
+              className={cn(
+                'flex justify-center md:hidden transition-all duration-300 ease-in-out',
+                dockLeaving
+                  ? '-translate-x-full opacity-0'
+                  : 'translate-x-0 opacity-100',
+              )}
+            >
               <div className="rounded-full border border-border bg-background/70 px-4 py-2 shadow-lg backdrop-blur-md">
                 <Button
                   type="button"
