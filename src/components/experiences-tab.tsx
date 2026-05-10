@@ -2,14 +2,20 @@
 
 import {
   Tabs,
-  TabsContent,
-  TabsContents,
   TabsHighlight,
   TabsHighlightItem,
   TabsList,
   TabsTrigger,
 } from '@/components/animate-ui/primitives/animate/tabs';
 import { Badge } from '@/components/ui/badge';
+import gsap from 'gsap';
+import { Briefcase } from 'lucide-react';
+import { useLayoutEffect, useRef, useState } from 'react';
+
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
+type TabKey = 'works' | 'organization' | 'education';
 
 type ExperienceItem = {
   role: string;
@@ -23,10 +29,10 @@ type ExperienceItem = {
 
 const workItems: ExperienceItem[] = [
   {
-    role: 'Frontend Engineer',
-    organization: 'Company Name',
-    period: 'Jan 2024 - Present',
-    location: 'Jakarta · Hybrid',
+    role: 'Research Assistant',
+    organization: 'AI Lab - Dept. Computer Science FMIPA Unpad',
+    period: 'March 2026 - Present',
+    location: 'Jatinangor, Sumedang Regency · Hybrid',
     highlights: [
       'Led component refactor to stabilize UI library and reduce regressions.',
       'Improved Lighthouse performance by optimizing bundle and image loading.',
@@ -77,6 +83,167 @@ const educationItems: ExperienceItem[] = [
   },
 ];
 
+const tabItems: Record<TabKey, ExperienceItem[]> = {
+  works: workItems,
+  organization: orgItems,
+  education: educationItems,
+};
+
+const tabOrder: TabKey[] = ['works', 'organization', 'education'];
+
+function renderExperienceItems(items: ExperienceItem[]) {
+  return items.map((item) => (
+    <ExperienceCard key={`${item.role}-${item.organization}`} {...item} />
+  ));
+}
+
+function TabPanel({ tab }: { tab: TabKey }) {
+  return (
+    <div className="flex flex-col gap-6">
+      {renderExperienceItems(tabItems[tab])}
+    </div>
+  );
+}
+
+function useAnimatedTabHeight(activeTab: TabKey) {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const measureRefs = useRef<Record<TabKey, HTMLDivElement | null>>({
+    works: null,
+    organization: null,
+    education: null,
+  });
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const [displayedTab, setDisplayedTab] = useState<TabKey>(activeTab);
+  const [transition, setTransition] = useState<{
+    from: TabKey;
+    to: TabKey;
+  } | null>(null);
+
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    if (activeTab === displayedTab) {
+      return;
+    }
+
+    const fromEl = measureRefs.current[displayedTab];
+    const toEl = measureRefs.current[activeTab];
+
+    if (!fromEl || !toEl) {
+      setDisplayedTab(activeTab);
+      setTransition(null);
+      return;
+    }
+
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+
+    timelineRef.current?.kill();
+
+    const fromHeight = fromEl.scrollHeight || fromEl.clientHeight;
+    const toHeight = toEl.scrollHeight || toEl.clientHeight;
+
+    gsap.set(stage, {
+      height: fromHeight,
+      overflow: 'hidden',
+    });
+
+    setTransition({ from: displayedTab, to: activeTab });
+
+    rafRef.current = requestAnimationFrame(() => {
+      const outgoing = stage.querySelector<HTMLElement>(
+        '[data-tab-layer="from"]',
+      );
+      const incoming = stage.querySelector<HTMLElement>(
+        '[data-tab-layer="to"]',
+      );
+
+      if (!outgoing || !incoming) {
+        setDisplayedTab(activeTab);
+        setTransition(null);
+        gsap.set(stage, { height: 'auto', overflow: 'visible' });
+        return;
+      }
+
+      const timeline = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        onComplete: () => {
+          setDisplayedTab(activeTab);
+          setTransition(null);
+          rafRef.current = requestAnimationFrame(() => {
+            gsap.set(stage, { height: 'auto', overflow: 'visible' });
+          });
+        },
+      });
+
+      timelineRef.current = timeline;
+
+      timeline.to(
+        stage,
+        {
+          height: toHeight,
+          duration: 0.42,
+        },
+        0,
+      );
+
+      timeline.to(
+        outgoing,
+        {
+          opacity: 0,
+          y: -8,
+          duration: 0.16,
+          pointerEvents: 'none',
+        },
+        0,
+      );
+
+      timeline.fromTo(
+        incoming,
+        { opacity: 0, y: 8 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.24,
+          pointerEvents: 'auto',
+        },
+        0.12,
+      );
+    });
+
+    return () => {
+      timelineRef.current?.kill();
+      timelineRef.current = null;
+
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [activeTab, displayedTab]);
+
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || transition) return;
+
+    gsap.set(stage, { height: 'auto', overflow: 'visible' });
+  }, [displayedTab, transition]);
+
+  return {
+    stageRef,
+    measureRefs,
+    displayedTab,
+    transition,
+  } as const;
+}
+
+// ---------------------------------------------------------------------------
+// ExperienceCard
+// ---------------------------------------------------------------------------
 function ExperienceCard({
   role,
   organization,
@@ -87,7 +254,7 @@ function ExperienceCard({
   media,
 }: ExperienceItem) {
   return (
-    <article className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm">
+    <article className="flex flex-col gap-5 rounded-xl border border-border bg-card p-6 shadow-sm">
       <header className="flex items-start gap-4">
         <div className="size-12 shrink-0 rounded-lg border border-border bg-muted/40" />
         <div className="flex flex-col gap-1">
@@ -131,60 +298,110 @@ function ExperienceCard({
   );
 }
 
-export function ExperiencesTab() {
+function TabPanels({ activeTab }: { activeTab: TabKey }) {
+  const { stageRef, measureRefs, displayedTab, transition } =
+    useAnimatedTabHeight(activeTab);
+
   return (
-    <Tabs className="w-full">
-      <TabsHighlight className="absolute inset-0 z-0 rounded-full bg-background/80">
-        <TabsList className="inline-flex h-11 w-full max-w-2xl gap-2 rounded-full border border-border bg-muted/40 p-1">
-          <TabsHighlightItem value="works" className="flex-1">
-            <TabsTrigger value="works" className="h-full w-full px-4 text-sm">
-              Works
-            </TabsTrigger>
-          </TabsHighlightItem>
-          <TabsHighlightItem value="organization" className="flex-1">
-            <TabsTrigger
-              value="organization"
-              className="h-full w-full px-4 text-sm"
+    <div className="relative w-full">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-0"
+      >
+        {tabOrder.map((tab) => (
+          <div
+            key={tab}
+            ref={(node) => {
+              measureRefs.current[tab] = node;
+            }}
+            className="w-full"
+          >
+            <TabPanel tab={tab} />
+          </div>
+        ))}
+      </div>
+
+      <div ref={stageRef} className="relative w-full overflow-visible">
+        {transition ? (
+          <>
+            <div
+              data-tab-layer="from"
+              className="relative w-full"
+              style={{ opacity: 1 }}
             >
-              Organization/Volunteer
-            </TabsTrigger>
-          </TabsHighlightItem>
-          <TabsHighlightItem value="education" className="flex-1">
-            <TabsTrigger
-              value="education"
-              className="h-full w-full px-4 text-sm"
+              <TabPanel tab={transition.from} />
+            </div>
+            <div
+              data-tab-layer="to"
+              className="absolute inset-0 w-full"
+              style={{ opacity: 0 }}
             >
-              Education
-            </TabsTrigger>
-          </TabsHighlightItem>
-        </TabsList>
-      </TabsHighlight>
-      <TabsContents className="flex flex-col gap-6 border border-border bg-background/70 p-6">
-        <TabsContent value="works" className="flex flex-col gap-6">
-          {workItems.map((item) => (
-            <ExperienceCard
-              key={`${item.role}-${item.organization}`}
-              {...item}
-            />
-          ))}
-        </TabsContent>
-        <TabsContent value="organization" className="flex flex-col gap-6">
-          {orgItems.map((item) => (
-            <ExperienceCard
-              key={`${item.role}-${item.organization}`}
-              {...item}
-            />
-          ))}
-        </TabsContent>
-        <TabsContent value="education" className="flex flex-col gap-6">
-          {educationItems.map((item) => (
-            <ExperienceCard
-              key={`${item.role}-${item.organization}`}
-              {...item}
-            />
-          ))}
-        </TabsContent>
-      </TabsContents>
-    </Tabs>
+              <TabPanel tab={transition.to} />
+            </div>
+          </>
+        ) : (
+          <div className="relative w-full">
+            <TabPanel tab={displayedTab} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ExperiencesTab
+// ---------------------------------------------------------------------------
+export function ExperiencesTab() {
+  const [activeTab, setActiveTab] = useState<TabKey>('works');
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <Briefcase
+          className="size-4 text-muted-foreground"
+          aria-hidden="true"
+        />
+        <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+          Current Occupation
+        </p>
+      </div>
+
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => setActiveTab(value as TabKey)}
+        className="w-full"
+      >
+        <TabsHighlight className="absolute inset-0 z-0 rounded-[10px] bg-background/80">
+          <TabsList className="inline-flex h-11 w-full gap-2 rounded-[10px] border border-border bg-muted/40 p-1 mb-4">
+            <TabsHighlightItem value="works" className="flex-1">
+              <TabsTrigger value="works" className="h-full w-full px-4 text-sm">
+                Works
+              </TabsTrigger>
+            </TabsHighlightItem>
+            <TabsHighlightItem value="organization" className="flex-1">
+              <TabsTrigger
+                value="organization"
+                className="h-full w-full px-4 text-sm"
+              >
+                Organization/Volunteer
+              </TabsTrigger>
+            </TabsHighlightItem>
+            <TabsHighlightItem value="education" className="flex-1">
+              <TabsTrigger
+                value="education"
+                className="h-full w-full px-4 text-sm"
+              >
+                Education
+              </TabsTrigger>
+            </TabsHighlightItem>
+          </TabsList>
+        </TabsHighlight>
+
+        <div className="rounded-xl border border-border bg-background/70 p-6">
+          <TabPanels activeTab={activeTab} />
+        </div>
+      </Tabs>
+    </div>
   );
 }
