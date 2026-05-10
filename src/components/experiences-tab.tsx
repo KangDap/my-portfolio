@@ -12,9 +12,6 @@ import gsap from 'gsap';
 import { Briefcase } from 'lucide-react';
 import { useLayoutEffect, useRef, useState } from 'react';
 
-// ---------------------------------------------------------------------------
-// Data
-// ---------------------------------------------------------------------------
 type TabKey = 'works' | 'organization' | 'education';
 
 type ExperienceItem = {
@@ -239,9 +236,6 @@ function useAnimatedTabHeight(activeTab: TabKey) {
   } as const;
 }
 
-// ---------------------------------------------------------------------------
-// ExperienceCard
-// ---------------------------------------------------------------------------
 function ExperienceCard({
   role,
   organization,
@@ -347,9 +341,6 @@ function TabPanels({ activeTab }: { activeTab: TabKey }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// ExperiencesTab
-// ---------------------------------------------------------------------------
 export function ExperiencesTab() {
   const [activeTab, setActiveTab] = useState<TabKey>('works');
 
@@ -361,7 +352,7 @@ export function ExperiencesTab() {
           aria-hidden="true"
         />
         <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-          Current Occupation
+          Experiences
         </p>
       </div>
 
