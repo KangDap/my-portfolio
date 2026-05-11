@@ -10,6 +10,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import gsap from 'gsap';
 import { Briefcase } from 'lucide-react';
+import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 type TabKey = 'works' | 'organization' | 'education';
@@ -22,6 +23,8 @@ type ExperienceItem = {
   highlights: string[];
   skills: string[];
   media?: number;
+  logoSrc?: string;
+  logoAlt?: string;
 };
 
 const workItems: ExperienceItem[] = [
@@ -31,52 +34,126 @@ const workItems: ExperienceItem[] = [
     period: 'March 2026 - Present',
     location: 'Jatinangor, Sumedang Regency · Hybrid',
     highlights: [
-      'Led component refactor to stabilize UI library and reduce regressions.',
-      'Improved Lighthouse performance by optimizing bundle and image loading.',
-      'Collaborated with design to ship a new onboarding flow in 2 sprints.',
+      'Create SLR (Systematic Literature Review) related on Neuroscience fields.',
     ],
-    skills: ['React', 'TypeScript', 'Tailwind', 'Performance'],
+    skills: ['Neuroscience', 'Literature Review'],
     media: 3,
+    logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
+    logoAlt: 'AI Lab logo',
   },
   {
-    role: 'Web Developer',
-    organization: 'Agency Studio',
-    period: 'Jul 2022 - Dec 2023',
-    location: 'Remote',
+    role: 'Machine Learning Engineer',
+    organization: 'Pusat Inovasi Pengajaran & Pembelajaran (PIPP) Unpad',
+    period: 'August 2025 - December 2025',
+    location: 'Jatinangor, Sumedang Regency · Hybrid',
     highlights: [
-      'Built landing pages with clean information hierarchy and reusable sections.',
-      'Delivered CMS integrations for marketing teams to self-serve content.',
+      'Developed survey methodologies for Electroencephalography (EEG) data collection to improve learning video quality.',
+      'Built a web-based survey data collection platform integrated with the Muse S Athena EEG Headband.',
+      'Evaluated and compared 3 machine learning models (SVM, Random Forest, XGBoost) based on performance metrics to select the most efficient model.',
     ],
-    skills: ['Next.js', 'CMS', 'UI Systems'],
+    skills: ['Python', 'Machine Learning', 'EEG', 'Neuroscience'],
+    logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
+    logoAlt: 'PIPP is affiliated with Unpad.',
+  },
+  {
+    role: 'Teaching Assistant',
+    organization: 'Dept. Computer Science FMIPA Unpad',
+    period: 'February 2025 - December 2025',
+    location: 'Jatinangor, Sumedang Regency · Hybrid',
+    highlights: [
+      'Delivered weekly lab sessions for over 80 undergraduate students across three courses: Object-Oriented Programming, Web Programming, and Computer Organization & Architecture.',
+      'Evaluated and gave feedback on 10+ assignments throughout the semester, resulting in 92% passing rate.',
+    ],
+    skills: [
+      'Teaching',
+      'Computer Architecture',
+      'Assembly',
+      'OOP',
+      'Java',
+      'NetBeans',
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'PHP',
+      'Laravel',
+    ],
+    logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
+    logoAlt: 'Teaching assistant for Computer Science FMIPA Unpad.',
   },
 ];
 
 const orgItems: ExperienceItem[] = [
   {
-    role: 'Volunteer Web Team',
-    organization: 'Community Event',
-    period: '2023 - Present',
-    location: 'Bandung · On-site',
+    role: 'Frontend Developer',
+    organization: 'TEDxPadjadjaran University 2026',
+    period: 'March 2026 - Present',
+    location: 'Jatinangor, Sumedang · Hybrid',
     highlights: [
-      'Designed a registration microsite to reduce onboarding friction.',
-      'Created a live schedule dashboard for event organizers.',
+      'Implement website design from UI/UX designer, ensuring smooth & clean view.',
+      'Integrating backend logic for website functionality.',
     ],
-    skills: ['Frontend', 'Communication', 'Event Ops'],
+    skills: ['Frontend', 'Next.js', 'Communication'],
     media: 2,
+    logoSrc: '/assets/experiences-tab/org/TEDx Logo.jpeg',
+    logoAlt: 'AI Lab logo',
+  },
+  {
+    role: 'Staff of Information Technology Development Department',
+    organization: 'Himatif FMIPA Unpad',
+    period: 'February 2024 - Dec 2025',
+    location: 'Jatinangor, Sumedang · Hybrid',
+    highlights: [
+      'Facilitating training sessions and IT-related competition preparation for 100+ participants.',
+      'Designed a structured 6-session mentoring syllabus for mentors across three competition tracks, outlining learning objectives, materials, and preparation strategies.',
+      'Contributed to the success of teams advancing to national and international competition finals, with three teams qualifying as finalists.',
+    ],
+    skills: ['Program Management', 'Communication'],
+    media: 2,
+    logoSrc: '/assets/experiences-tab/org/logohimatif.png',
+    logoAlt: 'AI Lab logo',
+  },
+  {
+    role: 'Manager of IT Competition',
+    organization: 'IFEST Unpad',
+    period: 'June 2025 - October 2025',
+    location: 'Jatinangor, Sumedang · Hybrid',
+    highlights: [
+      'Concepted 4 competitions including Competitive Programming, Data Analysis Competition, Essay Competition, and Hackathon.',
+      'Managed 400+ participants across competition from 40+ universities and high schools nationwide.',
+      'Led execution of Hackathon Day attended by 15 Hackathon finalist teams, ensuring smooth technical and operational delivery.',
+    ],
+    skills: ['Program Management', 'Communication'],
+    media: 2,
+    logoSrc: '/assets/experiences-tab/org/Logo IFEST 2025.png',
+    logoAlt: 'IFEST 2025',
+  },
+  {
+    role: 'Staff of IT Competition',
+    organization: 'IFEST Unpad',
+    period: 'June 2024 - October 2024',
+    location: 'Jatinangor, Sumedang · Hybrid',
+    highlights: [
+      'Designed and developed 20+ problem sets for Informatics Competition, equivalent to OSN Informatics for high school students.',
+      'Managed participant registration and administrative processes for the competition, resulting in total of 30+ participant registered.',
+      'Coordinated and supervised competition execution across all stages, including preliminary rounds, finals, and awarding ceremony.',
+    ],
+    skills: ['Program Management', 'Communication'],
+    media: 2,
+    logoSrc: '/assets/experiences-tab/org/Logo_IFest_2024.png',
+    logoAlt: 'IFEST 2024',
   },
 ];
 
 const educationItems: ExperienceItem[] = [
   {
-    role: 'B.Sc. Informatics',
-    organization: 'University Name',
-    period: '2020 - 2024',
-    location: 'Indonesia',
-    highlights: [
-      'Graduated with focus on data science and software engineering.',
-      'Built capstone project combining web app and ML pipeline.',
-    ],
+    role: 'Universitas Padjadjaran',
+    organization: "Bachelor's degree, Computer Science",
+    period: 'August 2023 - August 2027',
+    location: 'Sumedang, Indonesia',
+    highlights: ['Grade: 3.92/4.00 (Update January 2026)'],
     skills: ['Data Science', 'Machine Learning', 'Software Engineering'],
+    logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
+    logoAlt: "Universitas Padjadjaran's logo.",
   },
 ];
 
@@ -244,11 +321,23 @@ function ExperienceCard({
   highlights,
   skills,
   media,
+  logoSrc,
+  logoAlt,
 }: ExperienceItem) {
   return (
     <article className="flex flex-col gap-5 rounded-xl border border-border bg-card p-6 shadow-sm">
       <header className="flex items-start gap-4">
-        <div className="size-12 shrink-0 rounded-lg border border-border bg-muted/40" />
+        <div className="size-12 shrink-0 rounded-lg border border-border bg-muted/40">
+          {logoSrc ? (
+            <Image
+              src={logoSrc}
+              alt={logoAlt ?? organization}
+              width={48}
+              height={48}
+              className="size-full object-contain p-1"
+            />
+          ) : null}
+        </div>
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold text-foreground">{role}</h3>
           <p className="text-base text-foreground/80">{organization}</p>
