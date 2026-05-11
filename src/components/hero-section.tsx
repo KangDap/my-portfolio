@@ -3,6 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
+import { User } from 'lucide-react';
 import { useLayoutEffect, useRef } from 'react';
 import { FaArrowDown, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaCode } from 'react-icons/fa6';
@@ -175,7 +176,7 @@ export function HeroSection() {
         </div>
         <div
           data-animate="scroll-indicator"
-          className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground shadow-sm backdrop-blur"
+          className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground shadow-sm backdrop-blur"
         >
           <FaArrowDown className="text-primary" aria-hidden="true" />
           Scroll for more!
@@ -191,11 +192,17 @@ export function HeroSection() {
             >
               <ProfileCard label="Profile Photo" />
             </div>
-            <div data-animate="about-right" className="flex flex-col gap-6">
+            <div data-animate="about-right" className="flex flex-col gap-12">
               <div className="flex flex-col gap-3">
-                <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                  About Me
-                </p>
+                <div className="flex items-center gap-2">
+                  <User
+                    className="size-4 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                  <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+                    About Me
+                  </p>
+                </div>
                 <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
                   Building data-driven ideas into polished experiences.
                 </h2>

@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { BookUser, Folders, House } from 'lucide-react';
+import { BookUser, Briefcase, Folders, House } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -19,6 +19,11 @@ const navItems = [
     label: 'Home',
     href: '/',
     icon: House,
+  },
+  {
+    label: 'Experiences',
+    href: '/experiences',
+    icon: Briefcase,
   },
   {
     label: 'Projects',
