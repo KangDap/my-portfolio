@@ -15,12 +15,7 @@ import {
   experiencesByCategory,
 } from '@/data/experiences';
 import gsap from 'gsap';
-import {
-  Briefcase,
-  BriefcaseBusiness,
-  GraduationCap,
-  Users,
-} from 'lucide-react';
+import { BriefcaseBusiness, GraduationCap, Users } from 'lucide-react';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 function renderExperienceItems(items: ExperienceItem[]) {
@@ -230,16 +225,6 @@ export function ExperiencesTab() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-2">
-        <Briefcase
-          className="size-4 text-muted-foreground"
-          aria-hidden="true"
-        />
-        <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-          Experiences
-        </p>
-      </div>
-
       <Tabs
         value={activeTab}
         onValueChange={(value) => setActiveTab(value as ExperienceCategory)}
