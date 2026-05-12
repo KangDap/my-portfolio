@@ -75,41 +75,24 @@ export function HeroSection() {
 
     const ctx = gsap.context(() => {
       const timeline = gsap.timeline({
-        defaults: { duration: 0.9, ease: 'power3.out' },
+        defaults: { duration: 0.85, ease: 'power2.out' },
       });
 
       timeline
         .from(
           '[data-animate="hero-left"] > *',
-          { autoAlpha: 0, y: 24, stagger: 0.08 },
+          { autoAlpha: 0, y: 180, stagger: 0.16 },
           0,
         )
         .from(
           '[data-animate="hero-right"]',
-          { autoAlpha: 0, y: 24, scale: 0.98 },
-          0.1,
-        )
-        .from('[data-animate="scroll-indicator"]', { autoAlpha: 0, y: 16 }, 0.3)
-        .from(
-          '[data-animate="about-left"]',
-          { autoAlpha: 0, y: 24, scale: 0.98 },
-          0.2,
+          { autoAlpha: 0, y: 180, scale: 0.98 },
+          0.08,
         )
         .from(
-          '[data-animate="about-right"] > *',
-          { autoAlpha: 0, y: 20, stagger: 0.06 },
-          0.25,
-        )
-        .fromTo(
-          '[data-animate="tech-stack"] [data-animate="tech-pill"]',
-          { autoAlpha: 0, y: 14 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            stagger: 0.03,
-            clearProps: 'opacity,transform',
-          },
-          0.35,
+          '[data-animate="scroll-indicator"]',
+          { autoAlpha: 0, y: 180 },
+          0.24,
         );
 
       gsap.to('[data-animate="scroll-indicator"]', {
@@ -176,7 +159,7 @@ export function HeroSection() {
         </div>
         <div
           data-animate="scroll-indicator"
-          className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground shadow-sm backdrop-blur"
+          className="pointer-events-none absolute bottom-16 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground shadow-sm backdrop-blur"
         >
           <FaArrowDown className="text-primary" aria-hidden="true" />
           Scroll for more!
@@ -184,16 +167,20 @@ export function HeroSection() {
       </section>
 
       <section id="about">
-        <div className="mx-auto flex w-full max-w-6xl items-center px-6 py-14 lg:py-20">
+        <div
+          data-scroll-reveal-group
+          className="mx-auto flex w-full max-w-6xl items-center px-6 py-14 lg:py-20"
+        >
           <div className="grid w-full gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div
               data-animate="about-left"
+              data-scroll-reveal-item
               className="flex justify-center lg:justify-start"
             >
               <ProfileCard label="Profile Photo" />
             </div>
             <div data-animate="about-right" className="flex flex-col gap-12">
-              <div className="flex flex-col gap-3">
+              <div data-scroll-reveal-item className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
                   <User
                     className="size-4 text-muted-foreground"
@@ -207,12 +194,19 @@ export function HeroSection() {
                   Building data-driven ideas into polished experiences.
                 </h2>
               </div>
-              <p className="max-w-xl text-base text-muted-foreground lg:text-lg">
+              <p
+                data-scroll-reveal-item
+                className="max-w-xl text-base text-muted-foreground lg:text-lg"
+              >
                 I enjoy exploring machine learning and AI while crafting web
                 products that feel fast, clean, and easy to use.
               </p>
 
-              <div data-animate="tech-stack" className="flex flex-col gap-3">
+              <div
+                data-animate="tech-stack"
+                data-scroll-reveal-item
+                className="flex flex-col gap-3"
+              >
                 <div className="flex items-center gap-2">
                   <FaCode
                     className="size-4 text-muted-foreground"

@@ -14,8 +14,8 @@ export function CurrentOccupationSection() {
       id="current-occupation"
       className="mx-auto w-full max-w-6xl px-6 py-12 lg:py-16"
     >
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center gap-2">
+      <div data-scroll-reveal-group className="flex flex-col gap-6">
+        <div data-scroll-reveal-item className="flex items-center gap-2">
           <Briefcase
             className="size-4 text-muted-foreground"
             aria-hidden="true"
@@ -26,10 +26,12 @@ export function CurrentOccupationSection() {
         </div>
         <div className="grid gap-6">
           {currentExperiences.map((item) => (
-            <ExperienceCard
+            <div
               key={`${item.role}-${item.organization}`}
-              {...item}
-            />
+              data-scroll-reveal-item
+            >
+              <ExperienceCard {...item} />
+            </div>
           ))}
         </div>
       </div>

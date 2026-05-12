@@ -14,8 +14,8 @@ export function ProjectHighlightsSection() {
       id="projects"
       className="mx-auto w-full max-w-6xl px-6 py-12 lg:py-16"
     >
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center gap-2">
+      <div data-scroll-reveal-group className="flex flex-col gap-6">
+        <div data-scroll-reveal-item className="flex items-center gap-2">
           <Sparkles
             className="size-4 text-muted-foreground"
             aria-hidden="true"
@@ -24,7 +24,7 @@ export function ProjectHighlightsSection() {
             Project Highlights
           </p>
         </div>
-        <div className="flex flex-col gap-2">
+        <div data-scroll-reveal-item className="flex flex-col gap-2">
           <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
             Selected work that showcases my focus.
           </h2>
@@ -33,7 +33,12 @@ export function ProjectHighlightsSection() {
             engineering, and visual polish.
           </p>
         </div>
-        <ProjectsGrid projects={featuredProjects} className="md:grid-cols-2" />
+        <div data-scroll-reveal-item>
+          <ProjectsGrid
+            projects={featuredProjects}
+            className="md:grid-cols-2"
+          />
+        </div>
       </div>
     </section>
   );
