@@ -182,7 +182,7 @@ function TabPanels({ activeTab }: { activeTab: ExperienceCategory }) {
     <div className="relative w-full">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-0"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-0 overflow-hidden opacity-0"
       >
         {experienceCategoryOrder.map((tab) => (
           <div
@@ -245,7 +245,7 @@ export function ExperiencesTab() {
         onValueChange={(value) => setActiveTab(value as ExperienceCategory)}
         className="w-full"
       >
-        <TabsHighlight className="absolute inset-0 z-0 rounded-[10px] bg-background/80">
+        <TabsHighlight className="pointer-events-none absolute inset-0 z-0 rounded-[10px] bg-background/80">
           <TabsList className="mb-4 inline-flex h-11 w-full gap-2 rounded-[10px] border border-border bg-muted/40 p-1">
             <TabsHighlightItem value="works" className="flex-1">
               <TabsTrigger
