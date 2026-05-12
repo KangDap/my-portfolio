@@ -1,6 +1,7 @@
 import { CurrentOccupationSection } from '@/components/current-occupation-section';
 import { HeroSection } from '@/components/hero-section';
 import { Navbar } from '@/components/navbar';
+import { ProjectHighlightsSection } from '@/components/project-highlights-section';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
         <HeroSection />
       </section>
       <CurrentOccupationSection />
+      <ProjectHighlightsSection />
     </main>
   );
 }
