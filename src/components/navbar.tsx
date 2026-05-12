@@ -1,5 +1,10 @@
 'use client';
 
+import { Fade } from '@/components/animate-ui/primitives/effects/fade';
+import {
+  Highlight,
+  HighlightItem,
+} from '@/components/animate-ui/primitives/effects/highlight';
 import { Button } from '@/components/ui/button';
 import { Dock, DockIcon } from '@/components/ui/dock';
 import {
@@ -40,6 +45,7 @@ const navItems = [
 export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDock, setShowDock] = useState(false);
   const [dockLeaving, setDockLeaving] = useState(false);
@@ -58,7 +64,7 @@ export function Navbar() {
                 className={cn(
                   'flex size-full items-center justify-center transition-colors duration-300',
                   pathname === item.href
-                    ? 'text-foreground font-semibold'
+                    ? 'text-white font-semibold'
                     : 'text-muted-foreground hover:text-white',
                 )}
               >
@@ -82,9 +88,9 @@ export function Navbar() {
           href={item.href}
           onClick={() => setIsMenuOpen(false)}
           className={cn(
-            'flex items-center gap-3 text-base font-medium transition-all duration-300 ease-in-out',
+            'flex items-center gap-3 rounded px-3 py-2 text-base font-medium transition-all duration-300 ease-in-out',
             pathname === item.href
-              ? 'bg-muted text-foreground font-semibold rounded px-3 py-2'
+              ? 'bg-muted text-white font-semibold'
               : 'text-muted-foreground hover:text-foreground hover:scale-110',
           )}
         >
@@ -95,9 +101,32 @@ export function Navbar() {
     [pathname],
   );
 
+  const desktopLinks = useMemo(
+    () =>
+      navItems.map((item) => (
+        <HighlightItem key={item.label} value={item.href}>
+          <Link
+            href={item.href}
+            className={cn(
+              'inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out',
+              'text-muted-foreground hover:text-foreground data-[active=true]:text-white data-[active=true]:font-semibold',
+            )}
+          >
+            <item.icon className="size-4" />
+            <span>{item.label}</span>
+          </Link>
+        </HighlightItem>
+      )),
+    [],
+  );
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const nextIsScrolled = window.scrollY > 50;
+      setIsScrolled(nextIsScrolled);
+      if (nextIsScrolled) {
+        setHasScrolled(true);
+      }
     };
 
     handleScroll();
@@ -213,44 +242,54 @@ export function Navbar() {
             </div>
           </>
         ) : (
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
-            {/* Desktop: icon + label links */}
-            <div className="hidden items-center gap-8 md:flex">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    'inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 ease-in-out',
-                    pathname === item.href
-                      ? 'bg-muted text-foreground font-semibold rounded-lg px-4 py-2 hover:scale-110'
-                      : 'text-muted-foreground hover:text-foreground hover:scale-110',
-                  )}
+          (() => {
+            const topNav = (
+              <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
+                {/* Desktop: icon + label links */}
+                <Highlight
+                  controlledItems
+                  value={pathname}
+                  click={false}
+                  className="inset-0 rounded-lg bg-muted/80"
+                  transition={{ type: 'spring', stiffness: 260, damping: 30 }}
                 >
-                  <item.icon className="size-4" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
+                  <div className="hidden items-center gap-8 md:flex">
+                    {desktopLinks}
+                  </div>
+                </Highlight>
 
-            {/* Mobile: Hamburger */}
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="md:hidden"
-              aria-label="Open menu"
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-navbar"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <span className="flex flex-col gap-1" aria-hidden="true">
-                <span className="h-px w-5 bg-foreground" />
-                <span className="h-px w-5 bg-foreground" />
-                <span className="h-px w-5 bg-foreground" />
-              </span>
-            </Button>
-          </div>
+                {/* Mobile: Hamburger */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="md:hidden"
+                  aria-label="Open menu"
+                  aria-expanded={isMenuOpen}
+                  aria-controls="mobile-navbar"
+                  onClick={() => setIsMenuOpen(true)}
+                >
+                  <span className="flex flex-col gap-1" aria-hidden="true">
+                    <span className="h-px w-5 bg-foreground" />
+                    <span className="h-px w-5 bg-foreground" />
+                    <span className="h-px w-5 bg-foreground" />
+                  </span>
+                </Button>
+              </div>
+            );
+
+            return hasScrolled ? (
+              <Fade
+                initialOpacity={0}
+                opacity={1}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+              >
+                {topNav}
+              </Fade>
+            ) : (
+              topNav
+            );
+          })()
         )}
 
         {/* Mobile backdrop */}
