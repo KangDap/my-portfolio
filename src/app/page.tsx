@@ -1,3 +1,4 @@
+import { ContactCtaSection } from '@/components/contact-cta-section';
 import { CurrentOccupationSection } from '@/components/current-occupation-section';
 import { HeroSection } from '@/components/hero-section';
 import { Navbar } from '@/components/navbar';
@@ -14,6 +15,7 @@ export default function Home() {
         </section>
         <CurrentOccupationSection />
         <ProjectHighlightsSection />
+        <ContactCtaSection />
       </ScrollReveal>
     </main>
   );
