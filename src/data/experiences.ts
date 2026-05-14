@@ -32,7 +32,7 @@ export const experiencesByCategory: Record<
   works: [
     {
       role: 'Research Assistant',
-      organization: 'AI Lab - Dept. Computer Science FMIPA Unpad',
+      organization: 'AI Lab - Computer Science Department FMIPA Unpad',
       startDate: 'March 2026',
       endDate: 'Present',
       location: 'Jatinangor, Sumedang Regency · Hybrid',
@@ -61,7 +61,7 @@ export const experiencesByCategory: Record<
     },
     {
       role: 'Teaching Assistant',
-      organization: 'Dept. Computer Science FMIPA Unpad',
+      organization: 'Computer Science Department FMIPA Unpad',
       startDate: 'February 2025',
       endDate: 'December 2025',
       location: 'Jatinangor, Sumedang Regency · Hybrid',
@@ -103,7 +103,7 @@ export const experiencesByCategory: Record<
       logoAlt: 'AI Lab logo',
     },
     {
-      role: 'Staff of Information Technology Development Department',
+      role: 'Staff of IT Development Department',
       organization: 'Himatif FMIPA Unpad',
       startDate: 'February 2024',
       endDate: 'Dec 2025',

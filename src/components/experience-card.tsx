@@ -1,5 +1,6 @@
 'use client';
 
+import { AutoHeight } from '@/components/animate-ui/primitives/effects/auto-height';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,9 +15,10 @@ import {
   isCurrentExperience,
 } from '@/data/experiences';
 import { cn } from '@/lib/utils';
+import gsap from 'gsap';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 export function ExperienceCard({
   role,
@@ -33,6 +35,52 @@ export function ExperienceCard({
   const period = formatExperiencePeriod({ startDate, endDate });
   const [isOpen, setIsOpen] = useState(false);
   const isOngoing = isCurrentExperience({ endDate });
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    if (isOpen) {
+      const t = gsap.fromTo(
+        el,
+        { autoAlpha: 0, y: 8 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.28,
+          delay: 0.06,
+          ease: 'power2.out',
+          onComplete: () => {
+            try {
+              window.dispatchEvent(new Event('resize'));
+            } catch (e) {
+              console.log(e);
+            }
+          },
+        },
+      );
+      return () => {
+        t.kill();
+      };
+    } else {
+      const t = gsap.to(el, {
+        autoAlpha: 0,
+        y: 6,
+        duration: 0.16,
+        ease: 'power2.in',
+        onComplete: () => {
+          try {
+            window.dispatchEvent(new Event('resize'));
+          } catch (e) {
+            console.log(e);
+          }
+        },
+      });
+      return () => {
+        t.kill();
+      };
+    }
+  }, [isOpen]);
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
@@ -100,38 +148,51 @@ export function ExperienceCard({
           </Button>
         </CollapsibleTrigger>
 
-        <CollapsibleContent className="overflow-hidden data-[state=open]:animate-[collapsible-down_240ms_ease-out] data-[state=closed]:animate-[collapsible-up_240ms_ease-in]">
-          <div className="flex flex-col gap-4 pt-2">
-            <ul className="flex flex-col gap-2 pl-5 text-sm leading-relaxed text-muted-foreground">
-              {highlights.map((item) => (
-                <li key={item} className="list-disc">
-                  {item}
-                </li>
-              ))}
-            </ul>
+        <CollapsibleContent className="overflow-hidden">
+          <AutoHeight
+            deps={[isOpen]}
+            transition={
+              isOpen
+                ? { type: 'spring', stiffness: 300, damping: 30, delay: 0.5 }
+                : { type: 'spring', stiffness: 300, damping: 30 }
+            }
+          >
+            <div
+              ref={contentRef}
+              className="flex flex-col gap-4 pt-2"
+              data-experience-content
+            >
+              <ul className="flex flex-col gap-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                {highlights.map((item) => (
+                  <li key={item} className="list-disc">
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
-            {media ? (
-              <div className="flex flex-wrap gap-3">
-                {Array.from({ length: media }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="aspect-video w-24 rounded-md border border-border bg-muted/40 transition-transform duration-300 ease-out hover:scale-105"
-                  />
+              {media ? (
+                <div className="flex flex-wrap gap-3">
+                  {Array.from({ length: media }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="aspect-video w-24 rounded-md border border-border bg-muted/40 transition-transform duration-300 ease-out hover:scale-105"
+                    />
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  Skills
+                </span>
+                {skills.map((skill) => (
+                  <Badge key={skill} variant="outline">
+                    {skill}
+                  </Badge>
                 ))}
               </div>
-            ) : null}
-
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Skills
-              </span>
-              {skills.map((skill) => (
-                <Badge key={skill} variant="outline">
-                  {skill}
-                </Badge>
-              ))}
             </div>
-          </div>
+          </AutoHeight>
         </CollapsibleContent>
       </article>
     </Collapsible>
