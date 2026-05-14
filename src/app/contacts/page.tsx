@@ -1,13 +1,11 @@
 import { ContactDetailsSection } from '@/components/contact-details-section';
 import { ContactFormCard } from '@/components/contact-form-card';
-import { Navbar } from '@/components/navbar';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { Contact } from 'lucide-react';
 
 export default function ContactsPage() {
   return (
     <main className="flex flex-col">
-      <Navbar />
       <ScrollReveal revealOnLoad>
         <section
           data-scroll-reveal
