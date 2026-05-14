@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { BookUser, Briefcase, Folders, House } from 'lucide-react';
+import { BookUser, Briefcase, Folders, House, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -171,7 +171,7 @@ export function Navbar() {
   }, [isScrolled]);
 
   const topNav = (
-    <div className="absolute left-0 top-0 w-full">
+    <div className="absolute left-0 top-0 hidden w-full md:block">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
         <Highlight
           controlledItems
@@ -185,22 +185,31 @@ export function Navbar() {
             {desktopLinks}
           </div>
         </Highlight>
+      </div>
+    </div>
+  );
 
+  const mobileTopNav = (
+    <div className="fixed inset-x-0 top-0 z-50 md:hidden">
+      <div
+        className={cn(
+          'mx-auto flex w-full max-w-6xl items-center justify-end px-6 py-4 transition-all duration-300 ease-out',
+          isScrolled
+            ? 'border-b border-white/10 bg-black/60 shadow-lg backdrop-blur-xl'
+            : 'bg-transparent',
+        )}
+      >
         <Button
           type="button"
-          variant="outline"
+          variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="border-0 bg-transparent text-foreground shadow-none hover:bg-white/10"
           aria-label="Open menu"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navbar"
           onClick={() => setIsMenuOpen(true)}
         >
-          <span className="flex flex-col gap-1" aria-hidden="true">
-            <span className="h-px w-5 bg-foreground" />
-            <span className="h-px w-5 bg-foreground" />
-            <span className="h-px w-5 bg-foreground" />
-          </span>
+          <Menu className="size-5" aria-hidden="true" />
         </Button>
       </div>
     </div>
@@ -209,6 +218,8 @@ export function Navbar() {
   return (
     <TooltipProvider>
       <nav aria-label="Primary" className="relative z-50">
+        {mobileTopNav}
+
         {/* Dock */}
         {showDock && (
           <div className="fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center justify-center gap-6">
@@ -223,33 +234,6 @@ export function Navbar() {
               <Dock iconMagnification={60} iconDistance={100}>
                 {dockLinks}
               </Dock>
-            </div>
-
-            <div
-              className={cn(
-                'flex justify-center md:hidden transition-all duration-300 ease-in-out',
-                dockVisible
-                  ? 'translate-x-0 opacity-100'
-                  : '-translate-x-full opacity-0',
-              )}
-            >
-              <div className="rounded-full border border-border bg-background/70 px-4 py-2 shadow-lg backdrop-blur-md">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Open menu"
-                  aria-expanded={isMenuOpen}
-                  aria-controls="mobile-navbar"
-                  onClick={() => setIsMenuOpen(true)}
-                >
-                  <span className="flex flex-col gap-1" aria-hidden="true">
-                    <span className="h-px w-5 bg-foreground" />
-                    <span className="h-px w-5 bg-foreground" />
-                    <span className="h-px w-5 bg-foreground" />
-                  </span>
-                </Button>
-              </div>
             </div>
           </div>
         )}
