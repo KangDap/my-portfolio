@@ -22,8 +22,8 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
   const hasImage = project.image.trim().length > 0;
 
   return (
-    <Card className="h-full flex flex-col">
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted/40">
+    <Card className="h-full flex flex-col pt-0">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted/40 rounded-t-xl">
         {hasImage ? (
           <Image
             src={project.image}
