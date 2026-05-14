@@ -21,8 +21,8 @@ const bodyFont = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Dafa Ghani's Portfolio",
-    template: "%s | Dafa Ghani's Portfolio",
+    default: 'Dafa Ghani | Portfolio',
+    template: '%s | Dafa Ghani',
   },
   description:
     'Aspiring Data Science, Machine Learning, AI, and Web Development.',
