@@ -26,9 +26,29 @@ export function Pointer({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const media = window.matchMedia('(pointer: fine)');
+    const handleChange = () => setIsEnabled(media.matches);
+
+    handleChange();
+
+    if (media.addEventListener) {
+      media.addEventListener('change', handleChange);
+      return () => media.removeEventListener('change', handleChange);
+    }
+
+    media.addListener(handleChange);
+    return () => media.removeListener(handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
     const parentElement =
       typeof window !== 'undefined'
         ? (containerRef.current?.parentElement ?? null)
@@ -68,7 +88,11 @@ export function Pointer({
         parentElement.removeEventListener('mouseleave', handleMouseLeave);
       }
     };
-  }, [x, y]);
+  }, [isEnabled, x, y]);
+
+  if (!isEnabled) {
+    return null;
+  }
 
   return (
     <>
