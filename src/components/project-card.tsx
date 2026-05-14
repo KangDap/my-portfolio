@@ -11,9 +11,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import type { ProjectItem } from '@/data/projects';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, FileText } from 'lucide-react';
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
+import { SiGooglecolab } from 'react-icons/si';
 
 const imageSizes = '(min-width: 1280px) 420px, (min-width: 768px) 50vw, 100vw';
 
@@ -21,7 +22,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
   const hasImage = project.image.trim().length > 0;
 
   return (
-    <Card className="h-full">
+    <Card className="h-full flex flex-col">
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted/40">
         {hasImage ? (
           <Image
@@ -38,12 +39,12 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
         )}
       </div>
 
-      <CardHeader>
+      <CardHeader className="gap-4">
         <CardTitle>{project.title}</CardTitle>
         <CardDescription>{project.description}</CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex-1 gap-4">
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
@@ -57,16 +58,18 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
 
       <CardFooter className="justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" asChild>
-            <a
-              href={project.liveLink}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Open live demo for ${project.title}`}
-            >
-              <ExternalLink data-icon="inline-start" aria-hidden="true" />
-            </a>
-          </Button>
+          {project.liveLink ? (
+            <Button variant="outline" size="icon" asChild>
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open live demo for ${project.title}`}
+              >
+                <ExternalLink data-icon="inline-start" aria-hidden="true" />
+              </a>
+            </Button>
+          ) : null}
           {project.githubLink ? (
             <Button variant="outline" size="icon" asChild>
               <a
@@ -76,6 +79,30 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
                 aria-label={`Open GitHub repository for ${project.title}`}
               >
                 <FaGithub data-icon="inline-start" aria-hidden="true" />
+              </a>
+            </Button>
+          ) : null}
+          {project.paperLink ? (
+            <Button variant="outline" size="icon" asChild>
+              <a
+                href={project.paperLink}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open paper for ${project.title}`}
+              >
+                <FileText data-icon="inline-start" aria-hidden="true" />
+              </a>
+            </Button>
+          ) : null}
+          {project.notebookLink ? (
+            <Button variant="outline" size="icon" asChild>
+              <a
+                href={project.notebookLink}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open notebook for ${project.title}`}
+              >
+                <SiGooglecolab data-icon="inline-start" aria-hidden="true" />
               </a>
             </Button>
           ) : null}

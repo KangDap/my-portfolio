@@ -27,8 +27,8 @@ export default function ProjectsPage() {
                 All Projects
               </h1>
               <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-                Explore the full list of projects, from research experiments to
-                production-ready builds.
+                Explore the full list of my projects, from competition, college,
+                and personal projects.
               </p>
             </div>
             <div data-scroll-reveal-item>
