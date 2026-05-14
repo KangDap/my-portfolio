@@ -20,37 +20,31 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 const navItems = [
-  {
-    label: 'Home',
-    href: '/',
-    icon: House,
-  },
-  {
-    label: 'Experiences',
-    href: '/experiences',
-    icon: Briefcase,
-  },
-  {
-    label: 'Projects',
-    href: '/projects',
-    icon: Folders,
-  },
-  {
-    label: 'Contacts',
-    href: '/contacts',
-    icon: BookUser,
-  },
+  { label: 'Home', href: '/', icon: House },
+  { label: 'Experiences', href: '/experiences', icon: Briefcase },
+  { label: 'Projects', href: '/projects', icon: Folders },
+  { label: 'Contacts', href: '/contacts', icon: BookUser },
 ];
+
+type DockStatus =
+  | 'hidden' // dock not rendered at all
+  | 'entering' // dock rendered but not visible (for trigger CSS transition)
+  | 'visible' // dock fully visible
+  | 'leaving'; // dock exit animation
 
 export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showDock, setShowDock] = useState(false);
-  const [dockLeaving, setDockLeaving] = useState(false);
-  const dockLeaveTimerRef = useRef<number | null>(null);
-  const showDockTimerRef = useRef<number | null>(null);
+
+  const [dockStatus, setDockStatus] = useState<DockStatus>('hidden');
+
+  const leaveTimerRef = useRef<number | null>(null);
+  const enteringRafRef = useRef<number | null>(null);
+
+  const showDock = dockStatus !== 'hidden';
+  const dockVisible = dockStatus === 'visible';
 
   const dockLinks = useMemo(
     () =>
@@ -122,90 +116,107 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const nextIsScrolled = window.scrollY > 50;
-      setIsScrolled(nextIsScrolled);
-      if (nextIsScrolled) {
-        setHasScrolled(true);
-      }
+      const scrolled = window.scrollY > 50;
+      setIsScrolled(scrolled);
+      if (scrolled) setHasScrolled(true);
     };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    // clear any pending timers first
-    if (dockLeaveTimerRef.current !== null) {
-      window.clearTimeout(dockLeaveTimerRef.current);
-      dockLeaveTimerRef.current = null;
+    if (leaveTimerRef.current !== null) {
+      window.clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
     }
-    if (showDockTimerRef.current !== null) {
-      window.clearTimeout(showDockTimerRef.current);
-      showDockTimerRef.current = null;
+    if (enteringRafRef.current !== null) {
+      cancelAnimationFrame(enteringRafRef.current);
+      enteringRafRef.current = null;
     }
 
     if (isScrolled) {
-      // schedule showing the dock on next tick to avoid synchronous setState in effect
-      showDockTimerRef.current = window.setTimeout(() => {
-        setShowDock(true);
-        setDockLeaving(false);
-        showDockTimerRef.current = null;
-      }, 0);
-    } else if (!showDock) {
-      // schedule clearing leaving flag on next tick to avoid sync setState in effect
-      showDockTimerRef.current = window.setTimeout(() => {
-        setDockLeaving(false);
-        showDockTimerRef.current = null;
-      }, 0);
-    } else {
-      // schedule setting leaving flag on next tick then start leave timeout
-      showDockTimerRef.current = window.setTimeout(() => {
-        setDockLeaving(true);
-        showDockTimerRef.current = null;
-      }, 0);
-      dockLeaveTimerRef.current = window.setTimeout(() => {
-        setShowDock(false);
-        setDockLeaving(false);
-        dockLeaveTimerRef.current = null;
+      {
+        /* Disabled lint, this only changes Dock status for animation trigger. See https://react.dev/learn/you-might-not-need-an-effect */
+      }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDockStatus('entering');
+      enteringRafRef.current = requestAnimationFrame(() => {
+        setDockStatus('visible');
+        enteringRafRef.current = null;
+      });
+    } else if (dockStatus === 'visible' || dockStatus === 'entering') {
+      {
+        /* Disabled lint, this only changes Dock status for animation trigger. See https://react.dev/learn/you-might-not-need-an-effect */
+      }
+
+      setDockStatus('leaving');
+      leaveTimerRef.current = window.setTimeout(() => {
+        setDockStatus('hidden');
+        leaveTimerRef.current = null;
       }, 300);
     }
 
     return () => {
-      if (dockLeaveTimerRef.current !== null) {
-        window.clearTimeout(dockLeaveTimerRef.current);
-        dockLeaveTimerRef.current = null;
+      if (leaveTimerRef.current !== null) {
+        window.clearTimeout(leaveTimerRef.current);
+        leaveTimerRef.current = null;
       }
-      if (showDockTimerRef.current !== null) {
-        window.clearTimeout(showDockTimerRef.current);
-        showDockTimerRef.current = null;
+      if (enteringRafRef.current !== null) {
+        cancelAnimationFrame(enteringRafRef.current);
+        enteringRafRef.current = null;
       }
     };
-  }, [isScrolled, showDock]);
+  }, [isScrolled]);
+
+  const topNav = (
+    <div className="absolute left-0 top-0 w-full">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
+        <Highlight
+          controlledItems
+          value={pathname}
+          click={false}
+          className="inset-0 rounded-lg bg-muted/80"
+          transition={{ type: 'spring', stiffness: 260, damping: 30 }}
+        >
+          <div className="hidden items-center gap-8 md:flex">
+            {desktopLinks}
+          </div>
+        </Highlight>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          className="md:hidden"
+          aria-label="Open menu"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navbar"
+          onClick={() => setIsMenuOpen(true)}
+        >
+          <span className="flex flex-col gap-1" aria-hidden="true">
+            <span className="h-px w-5 bg-foreground" />
+            <span className="h-px w-5 bg-foreground" />
+            <span className="h-px w-5 bg-foreground" />
+          </span>
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <TooltipProvider>
-      <nav
-        aria-label="Primary"
-        className={cn(
-          'z-50 transition-all duration-600 ease-in-out',
-          isScrolled || showDock
-            ? 'fixed bottom-6 left-1/2 -translate-x-1/2'
-            : 'absolute top-0 left-0 w-full',
-        )}
-      >
-        {showDock ? (
-          <>
-            {/* Desktop: Magic UI Dock */}
+      <nav aria-label="Primary" className="relative z-50">
+        {/* Dock */}
+        {showDock && (
+          <div className="fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center justify-center gap-6">
             <div
               className={cn(
-                'hidden md:flex transition-all duration-600 ease-in-out',
-                dockLeaving
-                  ? '-translate-x-full opacity-0'
-                  : 'translate-x-0 opacity-100',
+                'hidden md:flex transition-all duration-500 ease-in-out',
+                dockVisible
+                  ? 'translate-x-0 opacity-100'
+                  : '-translate-x-full opacity-0',
               )}
             >
               <Dock iconMagnification={60} iconDistance={100}>
@@ -213,13 +224,12 @@ export function Navbar() {
               </Dock>
             </div>
 
-            {/* Mobile: Hamburger in floating pill */}
             <div
               className={cn(
                 'flex justify-center md:hidden transition-all duration-300 ease-in-out',
-                dockLeaving
-                  ? '-translate-x-full opacity-0'
-                  : 'translate-x-0 opacity-100',
+                dockVisible
+                  ? 'translate-x-0 opacity-100'
+                  : '-translate-x-full opacity-0',
               )}
             >
               <div className="rounded-full border border-border bg-background/70 px-4 py-2 shadow-lg backdrop-blur-md">
@@ -240,57 +250,22 @@ export function Navbar() {
                 </Button>
               </div>
             </div>
-          </>
-        ) : (
-          (() => {
-            const topNav = (
-              <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
-                {/* Desktop: icon + label links */}
-                <Highlight
-                  controlledItems
-                  value={pathname}
-                  click={false}
-                  className="inset-0 rounded-lg bg-muted/80"
-                  transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-                >
-                  <div className="hidden items-center gap-8 md:flex">
-                    {desktopLinks}
-                  </div>
-                </Highlight>
-
-                {/* Mobile: Hamburger */}
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  className="md:hidden"
-                  aria-label="Open menu"
-                  aria-expanded={isMenuOpen}
-                  aria-controls="mobile-navbar"
-                  onClick={() => setIsMenuOpen(true)}
-                >
-                  <span className="flex flex-col gap-1" aria-hidden="true">
-                    <span className="h-px w-5 bg-foreground" />
-                    <span className="h-px w-5 bg-foreground" />
-                    <span className="h-px w-5 bg-foreground" />
-                  </span>
-                </Button>
-              </div>
-            );
-
-            return hasScrolled ? (
-              <Fade
-                initialOpacity={0}
-                opacity={1}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
-              >
-                {topNav}
-              </Fade>
-            ) : (
-              topNav
-            );
-          })()
+          </div>
         )}
+
+        {/* Top navbar */}
+        {!isScrolled &&
+          (hasScrolled ? (
+            <Fade
+              initialOpacity={0}
+              opacity={1}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              {topNav}
+            </Fade>
+          ) : (
+            topNav
+          ))}
 
         {/* Mobile backdrop */}
         <div
