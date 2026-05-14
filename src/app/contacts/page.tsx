@@ -2,6 +2,13 @@ import { ContactDetailsSection } from '@/components/contact-details-section';
 import { ContactFormCard } from '@/components/contact-form-card';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { Contact } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contacts',
+  description:
+    "Whether you have a project idea, a collaboration offer, or a quick question, reach out and I'll respond as soon as possible.",
+};
 
 export default function ContactsPage() {
   return (

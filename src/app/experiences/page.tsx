@@ -1,6 +1,13 @@
 import { ExperiencesTab } from '@/components/experiences-tab';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { Briefcase } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Experiences',
+  description:
+    'View roles, communities, and academic milestones that shaped my journey.',
+};
 
 export default function ExperiencePage() {
   return (
@@ -23,8 +30,13 @@ export default function ExperiencePage() {
                 </p>
               </div>
               <h1 className="font-heading text-3xl leading-tight sm:text-4xl">
-                Full Experiences
+                A look at the roles and milestones behind my journey.
               </h1>
+              <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
+                From internships and organizations to academic work, here’s a
+                view of the experiences that helped shape how I build, learn,
+                and collaborate.
+              </p>
             </div>
             <div data-scroll-reveal-item>
               <ExperiencesTab />

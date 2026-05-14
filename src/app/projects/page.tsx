@@ -2,6 +2,13 @@ import { ProjectsGrid } from '@/components/projects-grid';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { projects } from '@/data/projects';
 import { Folders } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'A collection of projects across competition, college, and personal work.',
+};
 
 export default function ProjectsPage() {
   return (
@@ -24,11 +31,11 @@ export default function ProjectsPage() {
                 </p>
               </div>
               <h1 className="font-heading text-3xl leading-tight sm:text-4xl">
-                All Projects
+                Collection of projects I&apos;ve built.
               </h1>
               <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-                Explore the full list of my projects, from competition, college,
-                and personal projects.
+                From competition and college work to personal experiments, this
+                page highlights the projects that shaped my growth and skills.
               </p>
             </div>
             <div data-scroll-reveal-item>
