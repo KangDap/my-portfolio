@@ -92,7 +92,7 @@ export const experiencesByCategory: Record<
       organization: 'TEDxPadjadjaran University 2026',
       startDate: 'March 2026',
       endDate: 'Present',
-      location: 'Jatinangor, Sumedang · Hybrid',
+      location: 'Jatinangor, Sumedang Regency · Hybrid',
       highlights: [
         'Implement website design from UI/UX designer, ensuring smooth & clean view.',
         'Integrating backend logic for website functionality.',
@@ -107,7 +107,7 @@ export const experiencesByCategory: Record<
       organization: 'Himatif FMIPA Unpad',
       startDate: 'February 2024',
       endDate: 'Dec 2025',
-      location: 'Jatinangor, Sumedang · Hybrid',
+      location: 'Jatinangor, Sumedang Regency · Hybrid',
       highlights: [
         'Facilitating training sessions and IT-related competition preparation for 100+ participants.',
         'Designed a structured 6-session mentoring syllabus for mentors across three competition tracks, outlining learning objectives, materials, and preparation strategies.',
@@ -123,7 +123,7 @@ export const experiencesByCategory: Record<
       organization: 'IFEST Unpad',
       startDate: 'June 2025',
       endDate: 'October 2025',
-      location: 'Jatinangor, Sumedang · Hybrid',
+      location: 'Jatinangor, Sumedang Regency · Hybrid',
       highlights: [
         'Concepted 4 competitions including Competitive Programming, Data Analysis Competition, Essay Competition, and Hackathon.',
         'Managed 400+ participants across competition from 40+ universities and high schools nationwide.',
@@ -139,7 +139,7 @@ export const experiencesByCategory: Record<
       organization: 'IFEST Unpad',
       startDate: 'June 2024',
       endDate: 'October 2024',
-      location: 'Jatinangor, Sumedang · Hybrid',
+      location: 'Jatinangor, Sumedang Regency · Hybrid',
       highlights: [
         'Designed and developed 20+ problem sets for Informatics Competition, equivalent to OSN Informatics for high school students.',
         'Managed participant registration and administrative processes for the competition, resulting in total of 30+ participant registered.',
@@ -162,6 +162,17 @@ export const experiencesByCategory: Record<
       skills: ['Data Science', 'Machine Learning', 'Software Engineering'],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: "Universitas Padjadjaran's logo.",
+    },
+    {
+      role: 'SMA Negeri 2 Bandung',
+      organization: 'Mathematics and Natural Science',
+      startDate: 'August 2020',
+      endDate: 'August 2023',
+      location: 'Bandung, Indonesia',
+      highlights: ['Final Grade: 92.00'],
+      skills: ['Organization', 'Time Management'],
+      logoSrc: '/assets/experiences-tab/edu/sman_2_bandung.png',
+      logoAlt: "SMAN 2 Bandung's logo.",
     },
   ],
 };
