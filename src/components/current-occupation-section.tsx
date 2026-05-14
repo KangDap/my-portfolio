@@ -24,6 +24,14 @@ export function CurrentOccupationSection() {
             Current Occupation
           </p>
         </div>
+        <div data-scroll-reveal-item className="flex flex-col gap-2">
+          <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
+            Things I&apos;m currently working on.
+          </h2>
+          <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
+            A list of work that keeps me busy.
+          </p>
+        </div>
         <div className="grid gap-6">
           {currentExperiences.map((item) => (
             <div

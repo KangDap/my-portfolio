@@ -179,7 +179,7 @@ export function HeroSection() {
             >
               <ProfileCard label="Profile Photo" />
             </div>
-            <div data-animate="about-right" className="flex flex-col gap-12">
+            <div data-animate="about-right" className="flex flex-col gap-9">
               <div data-scroll-reveal-item className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
                   <User
@@ -191,15 +191,24 @@ export function HeroSection() {
                   </p>
                 </div>
                 <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-                  Building data-driven ideas into polished experiences.
+                  Building data-driven ideas into clean experiences.
                 </h2>
               </div>
               <p
                 data-scroll-reveal-item
                 className="max-w-xl text-base text-muted-foreground lg:text-lg"
               >
-                I enjoy exploring machine learning and AI while crafting web
-                products that feel fast, clean, and easy to use.
+                I enjoy exploring data sciene, machine learning, and AI while
+                develop web products that feel fast, clean, and easy to use.
+              </p>
+              <p
+                data-scroll-reveal-item
+                className="max-w-xl text-base text-muted-foreground lg:text-lg"
+              >
+                Currently on my last year (hopefully) at Universitas
+                Padjadjaran, i&apos;ve done many projects and competitions
+                related to programming, data science, cybersecurity, business,
+                and more.
               </p>
 
               <div

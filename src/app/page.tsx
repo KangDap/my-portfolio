@@ -8,9 +8,7 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       <ScrollReveal revealOnLoad>
-        <section id="home">
-          <HeroSection />
-        </section>
+        <HeroSection />
         <CurrentOccupationSection />
         <ProjectHighlightsSection />
         <ContactCtaSection />

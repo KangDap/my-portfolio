@@ -26,11 +26,10 @@ export function ProjectHighlightsSection() {
         </div>
         <div data-scroll-reveal-item className="flex flex-col gap-2">
           <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-            Selected work that showcases my focus.
+            Selected work that showcases my passion.
           </h2>
           <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-            A curated set of projects that highlight my product thinking,
-            engineering, and visual polish.
+            A curated set of projects I&apos;m most proud of.
           </p>
         </div>
         <div data-scroll-reveal-item>

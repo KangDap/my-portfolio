@@ -25,8 +25,8 @@ export function ContactCtaSection() {
               Interested in collaborating? Let&apos;s talk.
             </h2>
             <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-              If you want to build something thoughtful, polished, and fast,
-              reach out and we&apos;ll map the next steps together.
+              If you want to build something thoughtful, clean, and fast, reach
+              out and we&apos;ll discuss the next steps together.
             </p>
           </div>
           <div data-scroll-reveal-item className="flex flex-wrap gap-3">
