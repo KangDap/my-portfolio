@@ -232,28 +232,31 @@ export function ExperiencesTab() {
       >
         <TabsHighlight className="pointer-events-none absolute inset-0 z-0 rounded-[10px] bg-background/80">
           <TabsList className="mb-4 inline-flex h-11 w-full gap-2 rounded-[10px] border border-border bg-muted/40 p-1">
-            <TabsHighlightItem value="works" className="flex-1">
+            <TabsHighlightItem value="works" className="flex-1 min-w-0">
               <TabsTrigger
                 value="works"
-                className="flex h-full w-full items-center justify-center gap-2 px-4 text-sm"
+                className="flex h-full w-full min-w-0 items-center justify-center gap-1.5 px-2 text-xs sm:gap-2 sm:px-4 sm:text-sm"
               >
                 <BriefcaseBusiness data-icon="inline-start" />
                 <span>Works</span>
               </TabsTrigger>
             </TabsHighlightItem>
-            <TabsHighlightItem value="organization" className="flex-1">
+            <TabsHighlightItem value="organization" className="flex-1 min-w-0">
               <TabsTrigger
                 value="organization"
-                className="flex h-full w-full items-center justify-center gap-2 px-4 text-sm"
+                className="flex h-full w-full min-w-0 items-center justify-center gap-1.5 px-2 text-xs sm:gap-2 sm:px-4 sm:text-sm"
               >
                 <Users data-icon="inline-start" />
-                <span>Organization/Volunteer</span>
+                <span className="sm:hidden">Org</span>
+                <span className="hidden sm:inline truncate">
+                  Organization/Volunteer
+                </span>
               </TabsTrigger>
             </TabsHighlightItem>
-            <TabsHighlightItem value="education" className="flex-1">
+            <TabsHighlightItem value="education" className="flex-1 min-w-0">
               <TabsTrigger
                 value="education"
-                className="flex h-full w-full items-center justify-center gap-2 px-4 text-sm"
+                className="flex h-full w-full min-w-0 items-center justify-center gap-1.5 px-2 text-xs sm:gap-2 sm:px-4 sm:text-sm"
               >
                 <GraduationCap data-icon="inline-start" />
                 <span>Education</span>
