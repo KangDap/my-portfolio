@@ -193,7 +193,7 @@ export function ExperienceCard({
                   </h3>
                   <p className="text-base text-foreground/80">{organization}</p>
                 </div>
-                <div className="flex flex-col items-end gap-1 text-sm text-muted-foreground">
+                <div className="hidden sm:flex flex-col items-end gap-1 text-sm text-muted-foreground">
                   {isOngoing ? (
                     <Badge
                       variant="outline"
@@ -205,11 +205,27 @@ export function ExperienceCard({
                   <span>{period}</span>
                 </div>
               </div>
-              <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+              <div className="hidden sm:flex flex-col gap-1 text-sm text-muted-foreground">
                 <p>{location}</p>
               </div>
             </div>
           </header>
+
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground sm:hidden">
+            <div className="inline-flex items-center gap-2">
+              <span>{period}</span>
+              {isOngoing ? (
+                <Badge
+                  variant="outline"
+                  className="border-success/40 text-success"
+                >
+                  Ongoing
+                </Badge>
+              ) : null}
+            </div>
+            {/* <span aria-hidden="true">•</span> */}
+            <p>{location}</p>
+          </div>
 
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-fit px-3">
@@ -252,9 +268,9 @@ export function ExperienceCard({
               ) : null}
 
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {/* <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   Skills
-                </span>
+                </span> */}
                 {skills.map((skill) => (
                   <Badge key={skill} variant="outline">
                     {skill}
