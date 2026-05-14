@@ -25,11 +25,8 @@ export function CurrentOccupationSection() {
             Current Occupation
           </p>
         </div>
-        <div
-          data-scroll-reveal-item
-          className="flex flex-row items-end justify-between gap-4"
-        >
-          <div className="min-w-0 flex flex-col gap-2">
+        <div data-scroll-reveal-item className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
               Things I&apos;m currently working on.
             </h2>
@@ -37,15 +34,6 @@ export function CurrentOccupationSection() {
               A list of work that keeps me busy.
             </p>
           </div>
-          <Link
-            href="/experiences"
-            className="group shrink-0 inline-flex items-center gap-1"
-          >
-            <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
-              More
-            </span>
-            <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
-          </Link>
         </div>
         <div className="grid gap-6">
           {currentExperiences.map((item) => (
@@ -57,6 +45,15 @@ export function CurrentOccupationSection() {
             </div>
           ))}
         </div>
+        <Link
+          href="/experiences"
+          className="group inline-flex w-fit items-center gap-1 self-end pt-1"
+        >
+          <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
+            See more experiences
+          </span>
+          <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );

@@ -25,11 +25,8 @@ export function ProjectHighlightsSection() {
             Project Highlights
           </p>
         </div>
-        <div
-          data-scroll-reveal-item
-          className="flex flex-row items-end justify-between gap-4"
-        >
-          <div className="min-w-0 flex flex-col gap-2">
+        <div data-scroll-reveal-item className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
               Selected work that showcases my passion.
             </h2>
@@ -37,17 +34,6 @@ export function ProjectHighlightsSection() {
               List of projects I&apos;m most proud of.
             </p>
           </div>
-          <Link
-            href="/projects"
-            className="group shrink-0 inline-flex items-center gap-1"
-          >
-            <span className="inline-flex items-center gap-1">
-              <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
-                More
-              </span>
-              <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
-            </span>
-          </Link>
         </div>
         <div data-scroll-reveal-item>
           <ProjectsGrid
@@ -55,6 +41,17 @@ export function ProjectHighlightsSection() {
             className="md:grid-cols-2"
           />
         </div>
+        <Link
+          href="/projects"
+          className="group inline-flex w-fit items-center gap-1 self-end pt-1"
+        >
+          <span className="inline-flex items-center gap-1">
+            <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
+              See more projects
+            </span>
+            <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+          </span>
+        </Link>
       </div>
     </section>
   );
