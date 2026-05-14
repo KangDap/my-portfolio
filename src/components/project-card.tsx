@@ -45,9 +45,6 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
 
       <CardContent>
         <div className="flex flex-col gap-3">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Tech Stack
-          </p>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
               <Badge key={tech} variant="outline">
