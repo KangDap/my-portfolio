@@ -111,7 +111,7 @@ export function HeroSection() {
   return (
     <div ref={sectionRef} className="relative overflow-hidden bg-background">
       <section className="relative min-h-[100svh]">
-        <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl items-center px-6 py-14 lg:py-20">
+        <div className="mx-auto relative flex min-h-[100svh] w-full max-w-6xl flex-col justify-center px-6 py-14 lg:py-20">
           <div className="grid w-full gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             <div data-animate="hero-left" className="flex flex-col gap-6">
               <div className="flex flex-col gap-3">
@@ -156,13 +156,13 @@ export function HeroSection() {
               <ProfileCard label="Profile Photo" />
             </div>
           </div>
-        </div>
-        <div
-          data-animate="scroll-indicator"
-          className="pointer-events-none absolute bottom-16 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground shadow-sm backdrop-blur"
-        >
-          <FaArrowDown className="text-primary" aria-hidden="true" />
-          Scroll for more!
+          <div
+            data-animate="scroll-indicator"
+            className="pointer-events-none mt-8 flex w-fit self-center items-center gap-2 rounded-full border border-border bg-muted px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] whitespace-nowrap text-foreground shadow-sm backdrop-blur sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.28em] lg:absolute lg:bottom-16 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:self-auto lg:mx-0"
+          >
+            <FaArrowDown className="text-primary" aria-hidden="true" />
+            Scroll for more!
+          </div>
         </div>
       </section>
 
