@@ -1,5 +1,4 @@
 import { ProjectsGrid } from '@/components/projects-grid';
-import { Button } from '@/components/ui/button';
 import { getFeaturedProjects } from '@/data/projects';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
@@ -28,20 +27,27 @@ export function ProjectHighlightsSection() {
         </div>
         <div
           data-scroll-reveal-item
-          className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          className="flex flex-row items-end justify-between gap-4"
         >
-          <div className="flex flex-col gap-2">
+          <div className="min-w-0 flex flex-col gap-2">
             <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
               Selected work that showcases my passion.
             </h2>
             <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-              A curated set of projects I&apos;m most proud of.
+              List of projects I&apos;m most proud of.
             </p>
           </div>
-          <Button variant="link">
-            <Link href="/projects">See more projects</Link>
-            <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
-          </Button>
+          <Link
+            href="/projects"
+            className="group shrink-0 inline-flex items-center gap-1"
+          >
+            <span className="inline-flex items-center gap-1">
+              <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
+                More
+              </span>
+              <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+            </span>
+          </Link>
         </div>
         <div data-scroll-reveal-item>
           <ProjectsGrid
