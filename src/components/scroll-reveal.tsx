@@ -10,6 +10,8 @@ type ScrollRevealProps = {
   revealOnLoad?: boolean;
 };
 
+const REVEAL_START = 'top 85%';
+
 function isInViewport(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
   return rect.top < window.innerHeight && rect.bottom > 0;
@@ -79,7 +81,7 @@ export function ScrollReveal({
 
         ScrollTrigger.create({
           trigger: group,
-          start: 'top 85%',
+          start: REVEAL_START,
           onEnter: () => revealItems(items, { duration: 0.85, stagger: 0.16 }),
           onEnterBack: () =>
             revealItems(items, { duration: 0.75, stagger: 0.12 }),
@@ -111,7 +113,7 @@ export function ScrollReveal({
       gsap.set(hiddenTargets, { autoAlpha: 0, y: 180 });
 
       ScrollTrigger.batch(hiddenTargets, {
-        start: 'top 85%',
+        start: REVEAL_START,
         onEnter: (batch) => {
           revealItems(batch as HTMLElement[], {
             duration: 0.85,
