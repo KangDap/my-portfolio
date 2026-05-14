@@ -3,12 +3,28 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { User } from 'lucide-react';
 import { useLayoutEffect, useRef } from 'react';
 import { FaArrowDown, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaCode } from 'react-icons/fa6';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import StackIcon, { type IconName } from 'tech-stack-icons';
+
+gsap.registerPlugin(SplitText);
+
+const WELCOME_TEXTS = [
+  'Hello! ',
+  'こんにちは！',
+  'Halo!',
+  '你好！',
+  '안녕하세요!',
+];
+
+const CHAR_FADE_OUT_DURATION = 0.18;
+const CHAR_FADE_IN_DURATION = 0.22;
+const CHAR_STAGGER = 0.04;
+const CYCLE_HOLD = 2.2;
 
 const techStack: Array<{ label: string; icon: IconName }> = [
   { label: 'JavaScript', icon: 'js' },
@@ -31,11 +47,7 @@ const techStack: Array<{ label: string; icon: IconName }> = [
 ];
 
 const socialLinks = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/KangDap',
-    icon: FaGithub,
-  },
+  { label: 'GitHub', href: 'https://github.com/KangDap', icon: FaGithub },
   {
     label: 'LinkedIn',
     href: 'https://linkedin.com/in/dafaghani',
@@ -63,49 +75,118 @@ function ProfileCard({ label }: { label: string }) {
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const welcomeRef = useRef<HTMLParagraphElement>(null);
+  const indexRef = useRef(0);
+  const cycleTimerRef = useRef<number | null>(null);
 
   useLayoutEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
 
-    if (!sectionRef.current || prefersReducedMotion) {
-      return;
-    }
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({
-        defaults: { duration: 0.85, ease: 'power2.out' },
-      });
+      {
+        /* Hero entrance */
+      }
+      if (!prefersReducedMotion) {
+        const tl = gsap.timeline({
+          defaults: { duration: 0.85, ease: 'power2.out' },
+        });
 
-      timeline
-        .from(
+        tl.from(
           '[data-animate="hero-left"] > *',
           { autoAlpha: 0, y: 180, stagger: 0.16 },
           0,
         )
-        .from(
-          '[data-animate="hero-right"]',
-          { autoAlpha: 0, y: 180, scale: 0.98 },
-          0.08,
-        )
-        .from(
-          '[data-animate="scroll-indicator"]',
-          { autoAlpha: 0, y: 180 },
-          0.24,
-        );
+          .from(
+            '[data-animate="hero-right"]',
+            { autoAlpha: 0, y: 180, scale: 0.98 },
+            0.08,
+          )
+          .from(
+            '[data-animate="scroll-indicator"]',
+            { autoAlpha: 0, y: 180 },
+            0.24,
+          );
 
-      gsap.to('[data-animate="scroll-indicator"]', {
-        y: 10,
-        duration: 0.85,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.6,
-      });
+        gsap.to('[data-animate="scroll-indicator"]', {
+          y: 10,
+          duration: 0.85,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+          delay: 0.6,
+        });
+      }
+
+      {
+        /* Hello text cycling */
+      }
+      const el = welcomeRef.current;
+      if (!el) return;
+
+      const animateOut = (onComplete: () => void) => {
+        const split = SplitText.create(el, { type: 'chars' });
+
+        gsap.to(split.chars, {
+          autoAlpha: 0,
+          y: -6,
+          duration: CHAR_FADE_OUT_DURATION,
+          stagger: CHAR_STAGGER,
+          ease: 'power2.in',
+          onComplete: () => {
+            split.revert();
+            onComplete();
+          },
+        });
+      };
+
+      const animateIn = () => {
+        indexRef.current = (indexRef.current + 1) % WELCOME_TEXTS.length;
+        el.textContent = WELCOME_TEXTS[indexRef.current];
+
+        const split = SplitText.create(el, { type: 'chars' });
+
+        gsap.set(split.chars, { autoAlpha: 0, y: 6 });
+
+        gsap.to(split.chars, {
+          autoAlpha: 1,
+          y: 0,
+          duration: CHAR_FADE_IN_DURATION,
+          stagger: CHAR_STAGGER,
+          ease: 'power2.out',
+          onComplete: () => {
+            split.revert();
+            scheduleCycle();
+          },
+        });
+      };
+
+      const scheduleCycle = () => {
+        if (cycleTimerRef.current !== null) {
+          window.clearTimeout(cycleTimerRef.current);
+        }
+        cycleTimerRef.current = window.setTimeout(() => {
+          animateOut(animateIn);
+        }, CYCLE_HOLD * 1000);
+      };
+
+      const entranceDelay = prefersReducedMotion ? 0 : 1.2;
+      cycleTimerRef.current = window.setTimeout(
+        scheduleCycle,
+        entranceDelay * 1000,
+      );
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      if (cycleTimerRef.current !== null) {
+        window.clearTimeout(cycleTimerRef.current);
+        cycleTimerRef.current = null;
+      }
+    };
   }, []);
 
   return (
@@ -115,8 +196,11 @@ export function HeroSection() {
           <div className="grid w-full gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             <div data-animate="hero-left" className="flex flex-col gap-6">
               <div className="flex flex-col gap-3">
-                <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                  Welcome !
+                <p
+                  ref={welcomeRef}
+                  className="text-xs uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
+                >
+                  {WELCOME_TEXTS[0]}
                 </p>
                 <h1 className="font-heading text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92]">
                   Dafa Ghani
@@ -156,6 +240,7 @@ export function HeroSection() {
               <ProfileCard label="Profile Photo" />
             </div>
           </div>
+
           <div
             data-animate="scroll-indicator"
             className="pointer-events-none mt-8 flex w-fit self-center items-center gap-2 rounded-full border border-border bg-muted px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] whitespace-nowrap text-foreground shadow-sm backdrop-blur sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.28em] lg:absolute lg:bottom-16 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:self-auto lg:mx-0"
@@ -198,8 +283,8 @@ export function HeroSection() {
                 data-scroll-reveal-item
                 className="max-w-xl text-base text-muted-foreground lg:text-lg"
               >
-                I enjoy exploring data sciene, machine learning, and AI while
-                develop web products that feel fast, clean, and easy to use.
+                I enjoy exploring data science, machine learning, and AI while
+                developing web products that feel fast, clean, and easy to use.
               </p>
               <p
                 data-scroll-reveal-item
