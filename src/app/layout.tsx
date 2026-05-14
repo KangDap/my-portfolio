@@ -1,3 +1,5 @@
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
 import { LenisProvider } from '@/components/providers/lenis-provider';
 import { Pointer } from '@/components/ui/pointer';
 import type { Metadata } from 'next';
@@ -33,7 +35,11 @@ export default function RootLayout({
       className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </LenisProvider>
         <Pointer />
       </body>
     </html>

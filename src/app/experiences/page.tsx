@@ -1,12 +1,10 @@
 import { ExperiencesTab } from '@/components/experiences-tab';
-import { Navbar } from '@/components/navbar';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { Briefcase } from 'lucide-react';
 
 export default function ExperiencePage() {
   return (
     <main className="flex flex-col">
-      <Navbar />
       <ScrollReveal revealOnLoad>
         <section
           data-scroll-reveal

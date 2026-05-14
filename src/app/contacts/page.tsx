@@ -1,4 +1,3 @@
-import { Navbar } from '@/components/navbar';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -42,7 +41,6 @@ const contactLinks = [
 export default function ContactsPage() {
   return (
     <main className="flex flex-col">
-      <Navbar />
       <ScrollReveal revealOnLoad>
         <section
           data-scroll-reveal

@@ -1,4 +1,3 @@
-import { Navbar } from '@/components/navbar';
 import { ProjectsGrid } from '@/components/projects-grid';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { projects } from '@/data/projects';
@@ -7,7 +6,6 @@ import { Folders } from 'lucide-react';
 export default function ProjectsPage() {
   return (
     <main className="flex flex-col">
-      <Navbar />
       <ScrollReveal revealOnLoad>
         <section
           data-scroll-reveal
