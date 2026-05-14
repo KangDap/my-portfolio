@@ -193,7 +193,7 @@ export function Navbar() {
         className={cn(
           'z-50 transition-all duration-600 ease-in-out',
           isScrolled || showDock
-            ? 'fixed bottom-4 left-1/2 -translate-x-1/2'
+            ? 'fixed bottom-6 left-1/2 -translate-x-1/2'
             : 'absolute top-0 left-0 w-full',
         )}
       >
