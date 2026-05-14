@@ -1,6 +1,8 @@
 import { ExperienceCard } from '@/components/experience-card';
+import { Button } from '@/components/ui/button';
 import { getCurrentExperiences } from '@/data/experiences';
-import { Briefcase } from 'lucide-react';
+import { ArrowUpRight, Briefcase } from 'lucide-react';
+import Link from 'next/link';
 
 export function CurrentOccupationSection() {
   const currentExperiences = getCurrentExperiences();
@@ -24,13 +26,22 @@ export function CurrentOccupationSection() {
             Current Occupation
           </p>
         </div>
-        <div data-scroll-reveal-item className="flex flex-col gap-2">
-          <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-            Things I&apos;m currently working on.
-          </h2>
-          <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
-            A list of work that keeps me busy.
-          </p>
+        <div
+          data-scroll-reveal-item
+          className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+        >
+          <div className="flex flex-col gap-2">
+            <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
+              Things I&apos;m currently working on.
+            </h2>
+            <p className="max-w-2xl text-base text-muted-foreground lg:text-lg">
+              A list of work that keeps me busy.
+            </p>
+          </div>
+          <Button variant="link">
+            <Link href="/experiences">See more experiences</Link>
+            <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+          </Button>
         </div>
         <div className="grid gap-6">
           {currentExperiences.map((item) => (
