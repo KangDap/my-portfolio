@@ -103,7 +103,7 @@ export function Navbar() {
             href={item.href}
             className={cn(
               'inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out',
-              'text-muted-foreground hover:text-foreground data-[active=true]:text-white data-[active=true]:font-semibold',
+              'text-muted-foreground hover:text-foreground data-[active=true]:text-white',
             )}
           >
             <item.icon className="size-4" />
@@ -178,7 +178,8 @@ export function Navbar() {
           value={pathname}
           click={false}
           className="inset-0 rounded-lg bg-muted/80"
-          transition={{ type: 'spring', stiffness: 260, damping: 30 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+          exitDelay={0}
         >
           <div className="hidden items-center gap-8 md:flex">
             {desktopLinks}
