@@ -7,6 +7,7 @@ import {
 } from '@/data/contacts';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
+import Link from 'next/link';
 import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const infoIconMap = {
@@ -83,12 +84,14 @@ export function ContactDetailsSection() {
                     {item.label}
                   </p>
                   {item.href ? (
-                    <a
-                      className="text-base font-medium text-foreground hover:underline"
+                    <Link
+                      className="group text-base font-medium text-foreground"
                       href={item.href}
                     >
-                      {item.value}
-                    </a>
+                      <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">
+                        {item.value}
+                      </span>
+                    </Link>
                   ) : (
                     <p className="text-base font-medium text-foreground">
                       {item.value}
