@@ -47,6 +47,7 @@ export function CurrentOccupationSection() {
         </div>
         <Link
           href="/experiences"
+          data-scroll-reveal-item
           className="group inline-flex w-fit items-center gap-1 self-end pt-1"
         >
           <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-out group-hover:bg-[length:100%_1px]">

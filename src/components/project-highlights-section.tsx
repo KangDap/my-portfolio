@@ -43,6 +43,7 @@ export function ProjectHighlightsSection() {
         </div>
         <Link
           href="/projects"
+          data-scroll-reveal-item
           className="group inline-flex w-fit items-center gap-1 self-end pt-1"
         >
           <span className="inline-flex items-center gap-1">
