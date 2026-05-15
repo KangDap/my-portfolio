@@ -106,7 +106,7 @@ export function ExperienceCard({
           measure,
           { autoAlpha: 0, y: 8 },
           { autoAlpha: 1, y: 0, duration: 0.24 },
-          0.12,
+          0.4,
         );
       });
 
@@ -166,7 +166,7 @@ export function ExperienceCard({
       >
         {isOngoing ? (
           <ShineBorder
-            borderWidth={1}
+            borderWidth={3}
             duration={14}
             shineColor={['var(--success)', 'var(--success-foreground)']}
           />
