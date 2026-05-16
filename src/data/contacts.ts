@@ -42,7 +42,7 @@ export const contactInfoItems: ContactInfoItem[] = [
 
 export const socialCards: SocialCard[] = [
   {
-    label: 'Follow My Life Update',
+    label: 'Follow My Life Update.',
     description: 'See through my daily.',
     cta: 'Go to Instagram',
     href: 'https://instagram.com/dafa.ghani',
@@ -50,7 +50,7 @@ export const socialCards: SocialCard[] = [
     theme: 'sunset',
   },
   {
-    label: "Let's Connect",
+    label: "Let's Connect.",
     description: 'Connect with me professionally.',
     cta: 'Go to LinkedIn',
     href: 'https://linkedin.com/in/dafaghani',
@@ -58,7 +58,7 @@ export const socialCards: SocialCard[] = [
     theme: 'ocean',
   },
   {
-    label: 'Explore the Code',
+    label: 'Explore the Code.',
     description: 'Explore my open-source work.',
     cta: 'Go to GitHub',
     href: 'https://github.com/KangDap',
@@ -66,7 +66,7 @@ export const socialCards: SocialCard[] = [
     theme: 'charcoal',
   },
   {
-    label: 'Send an Email',
+    label: 'Send an Email.',
     description: 'Drop a message directly.',
     cta: 'Email Me',
     href: `mailto:${contactProfile.email}`,

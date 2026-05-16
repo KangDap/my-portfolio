@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { User } from 'lucide-react';
+import Image from 'next/image';
 import { useLayoutEffect, useRef } from 'react';
 import { FaArrowDown, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaCode } from 'react-icons/fa6';
@@ -15,9 +16,9 @@ gsap.registerPlugin(SplitText);
 
 const WELCOME_TEXTS = [
   'Hello! ',
-  'こんにちは！',
   'Halo!',
   '你好！',
+  'こんにちは！',
   '안녕하세요!',
 ];
 
@@ -60,14 +61,17 @@ const socialLinks = [
   },
 ];
 
-function ProfileCard({ label }: { label: string }) {
+function ProfileCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative w-full max-w-sm">
-      <div className="aspect-square w-full rounded-2xl border border-border bg-card shadow-lg" />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          {label}
-        </span>
+    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+      <div className="pointer-events-none relative aspect-square w-full">
+        <Image
+          src={src}
+          alt={alt}
+          fill={true}
+          loading="eager"
+          className="object-cover"
+        />
       </div>
     </div>
   );
@@ -237,7 +241,10 @@ export function HeroSection() {
               data-animate="hero-right"
               className="flex justify-center lg:justify-end"
             >
-              <ProfileCard label="Profile Photo" />
+              <ProfileCard
+                src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                alt="Profile Photo"
+              />
             </div>
           </div>
 
@@ -262,7 +269,10 @@ export function HeroSection() {
               data-scroll-reveal-item
               className="flex justify-center lg:justify-start"
             >
-              <ProfileCard label="Profile Photo" />
+              <ProfileCard
+                src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                alt="Profile Photo"
+              />
             </div>
             <div data-animate="about-right" className="flex flex-col gap-9">
               <div data-scroll-reveal-item className="flex flex-col gap-3">
