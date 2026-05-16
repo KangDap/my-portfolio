@@ -31,6 +31,22 @@ function revealItems(
   });
 }
 
+function fadeOutItems(
+  items: HTMLElement[],
+  options: { duration: number; stagger: number } = {
+    duration: 0.5,
+    stagger: 0.05,
+  },
+) {
+  gsap.to(items, {
+    autoAlpha: 0,
+    y: 180,
+    duration: options.duration,
+    stagger: options.stagger,
+    ease: 'power2.in',
+  });
+}
+
 export function ScrollReveal({
   children,
   selector = '[data-scroll-reveal]',
@@ -66,18 +82,15 @@ export function ScrollReveal({
 
         const isVisible = isInViewport(group);
 
-        if (revealOnLoad && isVisible) {
-          gsap.set(items, { autoAlpha: 0, y: 180 });
-          revealItems(items, { duration: 0.85, stagger: 0.16 });
-          return;
-        }
-
-        if (!revealOnLoad && isVisible) {
+        if (isVisible && !revealOnLoad) {
           gsap.set(items, { autoAlpha: 1, y: 0, clearProps: 'opacity' });
-          return;
+        } else {
+          gsap.set(items, { autoAlpha: 0, y: 180 });
         }
 
-        gsap.set(items, { autoAlpha: 0, y: 180 });
+        if (revealOnLoad && isVisible) {
+          revealItems(items, { duration: 0.85, stagger: 0.16 });
+        }
 
         ScrollTrigger.create({
           trigger: group,
@@ -85,6 +98,8 @@ export function ScrollReveal({
           onEnter: () => revealItems(items, { duration: 0.85, stagger: 0.16 }),
           onEnterBack: () =>
             revealItems(items, { duration: 0.75, stagger: 0.12 }),
+          onLeave: () => fadeOutItems(items),
+          onLeaveBack: () => fadeOutItems(items),
         });
       });
 
@@ -100,10 +115,11 @@ export function ScrollReveal({
         hiddenTargets.push(...elements);
       } else {
         elements.forEach((element) => {
+          hiddenTargets.push(element);
           if (isInViewport(element)) {
-            gsap.set(element, { autoAlpha: 1, y: 0, clearProps: 'opacity' });
+            gsap.set(element, { autoAlpha: 1, y: 0 });
           } else {
-            hiddenTargets.push(element);
+            gsap.set(element, { autoAlpha: 0, y: 180 });
           }
         });
       }
@@ -125,6 +141,12 @@ export function ScrollReveal({
             duration: 0.75,
             stagger: 0.1,
           });
+        },
+        onLeave: (batch) => {
+          fadeOutItems(batch as HTMLElement[]);
+        },
+        onLeaveBack: (batch) => {
+          fadeOutItems(batch as HTMLElement[]);
         },
       });
     }, container);
