@@ -91,30 +91,7 @@ export function HeroSection() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      {
-        /* Hero entrance */
-      }
       if (!prefersReducedMotion) {
-        const tl = gsap.timeline({
-          defaults: { duration: 0.85, ease: 'power2.out' },
-        });
-
-        tl.from(
-          '[data-animate="hero-left"] > *',
-          { autoAlpha: 0, y: 180, stagger: 0.16 },
-          0,
-        )
-          .from(
-            '[data-animate="hero-right"]',
-            { autoAlpha: 0, y: 180, scale: 0.98 },
-            0.08,
-          )
-          .from(
-            '[data-animate="scroll-indicator"]',
-            { autoAlpha: 0, y: 180 },
-            0.24,
-          );
-
         gsap.to('[data-animate="scroll-indicator"]', {
           y: 10,
           duration: 0.85,
@@ -195,11 +172,11 @@ export function HeroSection() {
 
   return (
     <div ref={sectionRef} className="relative overflow-hidden bg-background">
-      <section className="relative min-h-[100svh]">
+      <section data-scroll-reveal-group className="relative min-h-[100svh]">
         <div className="mx-auto relative flex min-h-[100svh] w-full max-w-6xl flex-col justify-center px-6 py-14 lg:py-20">
           <div className="grid w-full gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-            <div data-animate="hero-left" className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-6">
+              <div data-scroll-reveal-item className="flex flex-col gap-3">
                 <p
                   ref={welcomeRef}
                   className="text-xs uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
@@ -210,11 +187,17 @@ export function HeroSection() {
                   Dafa Ghani
                 </h1>
               </div>
-              <p className="max-w-xl text-base text-muted-foreground lg:text-lg">
+              <p
+                data-scroll-reveal-item
+                className="max-w-xl text-base text-muted-foreground lg:text-lg"
+              >
                 Aspiring Data Science, Machine Learning, AI, and Web
                 Development.
               </p>
-              <div className="flex flex-wrap items-center gap-3">
+              <div
+                data-scroll-reveal-item
+                className="flex flex-wrap items-center gap-3"
+              >
                 <Button size="lg" asChild>
                   <a href="/resume.pdf" target="_blank" rel="noreferrer">
                     <IoDocumentTextOutline /> My CV
@@ -238,7 +221,7 @@ export function HeroSection() {
             </div>
 
             <div
-              data-animate="hero-right"
+              data-scroll-reveal-item
               className="flex justify-center lg:justify-end"
             >
               <ProfileCard
@@ -248,12 +231,14 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div
-            data-animate="scroll-indicator"
-            className="pointer-events-none mt-8 flex w-fit self-center items-center gap-2 rounded-full border border-border bg-muted px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] whitespace-nowrap text-foreground shadow-sm backdrop-blur sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.28em] lg:absolute lg:bottom-16 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:self-auto lg:mx-0"
-          >
-            <FaArrowDown className="text-primary" aria-hidden="true" />
-            Scroll for more!
+          <div data-scroll-reveal-item className="flex justify-center">
+            <span
+              data-animate="scroll-indicator"
+              className="pointer-events-none mt-8 flex w-fit items-center gap-2 rounded-full border border-border bg-muted px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] whitespace-nowrap text-foreground shadow-sm backdrop-blur sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.28em]"
+            >
+              <FaArrowDown className="text-primary" aria-hidden="true" />
+              Scroll for more!
+            </span>
           </div>
         </div>
       </section>
