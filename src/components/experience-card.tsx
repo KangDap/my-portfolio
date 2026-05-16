@@ -166,9 +166,9 @@ export function ExperienceCard({
       >
         {isOngoing ? (
           <ShineBorder
-            borderWidth={3}
+            borderWidth={1}
             duration={14}
-            shineColor={['var(--success)', 'var(--success-foreground)']}
+            shineColor={['var(--ring)', 'var(--success-foreground)']}
           />
         ) : null}
 

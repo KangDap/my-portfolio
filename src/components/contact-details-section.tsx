@@ -26,7 +26,7 @@ const socialIconMap = {
 const themeClasses: Record<SocialCard['theme'], string> = {
   sunset:
     'bg-gradient-to-br from-[#ff6a3d]/90 via-[#d64b8c]/90 to-[#7b3ff2]/90',
-  ocean: 'bg-gradient-to-br from-[#0f4c81]/90 to-[#0a7494]/90',
+  ocean: 'bg-gradient-to-br from-[#0466c9]/90 to-[#0a7494]/90',
   charcoal: 'bg-gradient-to-br from-[#1c1d24]/90 to-[#353646]/90',
   emerald: 'bg-gradient-to-br from-[#0b6b4f]/90 to-[#0f8a5f]/90',
 };
