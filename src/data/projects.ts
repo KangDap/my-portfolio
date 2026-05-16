@@ -15,7 +15,7 @@ export const projects: ProjectItem[] = [
     title: 'Care Connect',
     description:
       'A psychological consultation and violence reporting platform based on SDG 16.1 with donation features, anonymous report publication, and AI statistical analysis.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['Next.js', 'Tailwind CSS', 'Supabase', 'TanStack Query'],
     liveLink: 'https://example.com/neuro-pulse',
     githubLink: 'https://github.com/KangDap/care-connect',
@@ -25,7 +25,7 @@ export const projects: ProjectItem[] = [
     title: 'MediProfen',
     description:
       'A VR Game built with Unity based on SDG 3.c that simulate first aid simulations, aiming to give civil/medical students Emergency Decision Training.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['Unity', 'C#', 'Blender 3D'],
     githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
     isFeatured: true,
@@ -34,7 +34,7 @@ export const projects: ProjectItem[] = [
     title: 'Neuro AI',
     description:
       "Real-time multimodal biometric system solving the 'Black Box Problem' in online education by integrating EEG, eye-tracking, and face recognition for objective engagement measurement.",
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['Python', 'Muse EEG Headband', 'Next.js', 'FastAPI'],
     liveLink: 'https://neuro-ai-ashy.vercel.app',
     githubLink: 'https://github.com/hdans/Neuro-AI',
@@ -47,7 +47,7 @@ export const projects: ProjectItem[] = [
     title: 'COREN: Clustering and Recommendation',
     description:
       'A web-based customer segmentation application using RFM analysis and K-Means clustering to support data-driven marketing strategies.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['HTML', 'CSS', 'JavaScript', 'Python', 'Flask'],
     githubLink: 'https://github.com/KangDap/coren',
     isFeatured: false,
@@ -57,7 +57,7 @@ export const projects: ProjectItem[] = [
       'Forecasting Renewable Energy Potential Using Data Mining to Support National Energy Independence',
     description:
       'Data mining project that analyzes and clusters Indonesian provinces based on renewable energy potential using K-Means Clustering.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: [
       'Python',
       'K-Means Clustering',
@@ -78,7 +78,7 @@ export const projects: ProjectItem[] = [
       'Sentiment Analysis of Halodoc App Reviews Using a Convolutional Neural Network (CNN) Model with the Lexicon-Based Labeling Method',
     description:
       'Sentiment analysis project on Halodoc app reviews using a Convolutional Neural Network (CNN) model with lexicon-based automatic labeling.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['Python', 'CNN', 'Lexicon'],
     liveLink: '',
     githubLink: 'https://github.com/abdazizhamud/dapa-ganteng-datathon-ristek',
@@ -90,7 +90,7 @@ export const projects: ProjectItem[] = [
     title: 'Food Price Forecasting with Gradient Boosting',
     description:
       'Machine learning-based forecasting system for Indonesian food prices using XGBoost and Gradient Boosting.',
-    image: '/assets/projects/project-placeholder.svg',
+    image: '',
     techStack: ['Python', 'XGBoost', 'Optuna', 'Pandas', 'Scikit-learn'],
     liveLink: '',
     githubLink: '',
