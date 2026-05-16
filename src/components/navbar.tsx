@@ -5,8 +5,10 @@ import {
   Highlight,
   HighlightItem,
 } from '@/components/animate-ui/primitives/effects/highlight';
+import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { Button } from '@/components/ui/button';
 import { Dock, DockIcon } from '@/components/ui/dock';
+import { Separator } from '@/components/ui/separator';
 import {
   Tooltip,
   TooltipContent,
@@ -172,7 +174,7 @@ export function Navbar() {
 
   const topNav = (
     <div className="absolute left-0 top-0 hidden w-full md:block">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-center gap-6 px-6 py-6">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
         <Highlight
           controlledItems
           value={pathname}
@@ -185,6 +187,7 @@ export function Navbar() {
             {desktopLinks}
           </div>
         </Highlight>
+        <AnimatedThemeToggler />
       </div>
     </div>
   );
@@ -195,7 +198,7 @@ export function Navbar() {
         className={cn(
           'mx-auto flex w-full max-w-6xl items-center justify-end px-6 py-4 transition-all duration-300 ease-out',
           isScrolled
-            ? 'border-b border-white/10 bg-black/60 shadow-lg backdrop-blur-xl'
+            ? 'border-b border-white/10 bg-black/60 shadow-lg backdrop-blur-lg'
             : 'bg-transparent',
         )}
       >
@@ -233,6 +236,22 @@ export function Navbar() {
             >
               <Dock iconMagnification={60} iconDistance={100}>
                 {dockLinks}
+                <Separator orientation="vertical" className="h-full" />
+                <DockIcon className="bg-black/10 dark:bg-white/10">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex size-full items-center justify-center">
+                        <AnimatedThemeToggler
+                          aria-label="Toggle theme"
+                          className="flex size-full items-center justify-center text-muted-foreground transition-colors duration-300 hover:text-white"
+                        />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Change Theme</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </DockIcon>
               </Dock>
             </div>
           </div>
