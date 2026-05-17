@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable react-hooks/static-components */
 import { cn } from '@/lib/utils';
 import { type HTMLMotionProps, isMotionComponent, motion } from 'motion/react';
 import * as React from 'react';
@@ -17,19 +16,8 @@ type WithAsChild<Base extends object> =
   | (Base & { asChild?: false | undefined });
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children?: any;
+  children?: React.ReactElement | null;
 } & DOMMotionProps<T>;
-
-const motionComponentCache = new Map<React.ElementType, React.ElementType>();
-
-function getMotionComponent(type: React.ElementType): React.ElementType {
-  const cached = motionComponentCache.get(type);
-  if (cached) return cached;
-  const created = motion.create(type);
-  motionComponentCache.set(type, created);
-  return created;
-}
 
 function mergeRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
@@ -74,20 +62,42 @@ function Slot<T extends HTMLElement = HTMLElement>({
   ref,
   ...props
 }: SlotProps<T>) {
+  if (!React.isValidElement(children)) return null;
+
   const isAlreadyMotion =
     typeof children.type === 'object' &&
     children.type !== null &&
     isMotionComponent(children.type);
 
-  const Base = isAlreadyMotion
-    ? (children.type as React.ElementType)
-    : getMotionComponent(children.type as React.ElementType);
-
-  if (!React.isValidElement(children)) return null;
-
-  const { ref: childRef, ...childProps } = children.props as AnyProps;
+  const { ref: childRef, ...childProps } = children.props as {
+    ref?: React.Ref<T>;
+  } & Record<string, unknown>;
 
   const mergedProps = mergeProps(childProps, props);
+
+  if (!isAlreadyMotion) {
+    // Avoid creating a motion-enhanced component during render (this trips
+    // the static-components lint rule). Instead, wrap the child in a
+    // motion.div and apply merged props to the wrapper. Clone the child to
+    // preserve its original ref.
+    const { className, style, ...rest } = mergedProps as HTMLMotionProps<'div'>;
+
+    return (
+      <motion.div
+        {...rest}
+        className={className}
+        style={style}
+        ref={ref as React.Ref<HTMLDivElement>}
+      >
+        {React.cloneElement(
+          children as React.ReactElement<{ ref?: React.Ref<T> }>,
+          { ref: childRef },
+        )}
+      </motion.div>
+    );
+  }
+
+  const Base = children.type as React.ElementType;
 
   return (
     <Base {...mergedProps} ref={mergeRefs(childRef as React.Ref<T>, ref)} />

@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogPopup,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/animate-ui/components/base/alert-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,7 +27,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { contactProfile } from '@/data/contacts';
 
-export function ContactFormCard() {
+export const ContactFormCard = () => {
   return (
     <div data-scroll-reveal-item>
       <Card className="h-full">
@@ -75,10 +86,27 @@ export function ContactFormCard() {
                 </FieldDescription>
               </Field>
             </FieldGroup>
-            <Button type="submit">Send Message</Button>
+            <AlertDialog>
+              <AlertDialogTrigger
+                render={<Button type="submit">Send Message</Button>}
+              />
+              <AlertDialogPopup from="top" className="sm:max-w-[425px]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogPopup>
+            </AlertDialog>
           </form>
         </CardContent>
       </Card>
     </div>
   );
-}
+};
