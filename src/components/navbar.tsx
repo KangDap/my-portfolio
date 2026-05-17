@@ -199,12 +199,13 @@ export function Navbar() {
     <div className="fixed inset-x-0 top-0 z-50 md:hidden">
       <div
         className={cn(
-          'mx-auto flex w-full max-w-6xl items-center justify-end px-6 py-4 transition-all duration-300 ease-out',
+          'mx-auto flex w-full max-w-6xl items-center justify-end gap-4 px-6 py-4 transition-all duration-300 ease-out',
           isScrolled
-            ? 'border-b border-white/10 bg-black/60 shadow-lg backdrop-blur-lg'
+            ? 'border-b border-black/10 bg-white/60 shadow-lg backdrop-blur-lg dark:border-white/10 dark:bg-black/60'
             : 'bg-transparent',
         )}
       >
+        <AnimatedThemeToggler />
         <Button
           type="button"
           variant="ghost"
