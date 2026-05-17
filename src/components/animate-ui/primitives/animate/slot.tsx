@@ -16,7 +16,9 @@ type WithAsChild<Base extends object> =
   | (Base & { asChild?: false | undefined });
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
-  children?: React.ReactElement | null;
+  // Keep this wide so conditional component unions (Slot | motion.*)
+  // don't over-constrain children types at call sites.
+  children?: React.ReactNode;
 } & DOMMotionProps<T>;
 
 function mergeRefs<T>(

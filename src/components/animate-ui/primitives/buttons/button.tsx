@@ -20,10 +20,24 @@ function Button({
   asChild = false,
   ...props
 }: ButtonProps) {
-  const Component = asChild ? Slot : motion.button;
+  if (asChild) {
+    const { children, ...slotProps } = props as HTMLMotionProps<'button'> & {
+      children: React.ReactElement;
+    };
+
+    return (
+      <Slot
+        whileTap={{ scale: tapScale }}
+        whileHover={{ scale: hoverScale }}
+        {...slotProps}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
-    <Component
+    <motion.button
       whileTap={{ scale: tapScale }}
       whileHover={{ scale: hoverScale }}
       {...props}
