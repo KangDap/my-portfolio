@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,11 +25,30 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from '@/components/ui/input-group';
 import { contactProfile } from '@/data/contacts';
+import {
+  Heading3,
+  Mail,
+  MessageSquareText,
+  Minus,
+  SendHorizontal,
+  User,
+  X,
+} from 'lucide-react';
+import { useState } from 'react';
 
 export const ContactFormCard = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
   return (
     <div data-scroll-reveal-item>
       <Card className="h-full">
@@ -47,40 +68,73 @@ export const ContactFormCard = () => {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="contact-name">Name</FieldLabel>
-                <Input
-                  id="contact-name"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                />
+                <InputGroup>
+                  <InputGroupAddon align="inline-start">
+                    <User />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="contact-name"
+                    name="name"
+                    placeholder="Your full name"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    required
+                  />
+                </InputGroup>
               </Field>
               <Field>
                 <FieldLabel htmlFor="contact-email">Email</FieldLabel>
-                <Input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  placeholder="you@email.com"
-                  required
-                />
+                <InputGroup>
+                  <InputGroupAddon align="inline-start">
+                    <Mail />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    placeholder="you@email.com"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
+                  />
+                </InputGroup>
               </Field>
               <Field>
                 <FieldLabel htmlFor="contact-subject">Subject</FieldLabel>
-                <Input
-                  id="contact-subject"
-                  name="subject"
-                  placeholder="What can we build together?"
-                  required
-                />
+                <InputGroup>
+                  <InputGroupAddon align="inline-start">
+                    <Heading3 />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="contact-subject"
+                    name="subject"
+                    placeholder="What can we build together?"
+                    required
+                  />
+                </InputGroup>
               </Field>
               <Field>
                 <FieldLabel htmlFor="contact-message">Message</FieldLabel>
-                <Textarea
-                  id="contact-message"
-                  name="message"
-                  placeholder="Share the context, timeline, and goals."
-                  required
-                />
+                <InputGroup className="min-h-[200px] items-start max-w-[19.25rem] md:max-w-[29.75rem]">
+                  <InputGroupAddon align="block-start" className="border-b">
+                    <InputGroupText className="font-mono">
+                      <MessageSquareText />
+                      msg.txt
+                    </InputGroupText>
+                    <InputGroupButton className="ml-auto" size="icon-xs">
+                      <Minus />
+                    </InputGroupButton>
+                    <InputGroupButton size="icon-xs">
+                      <X />
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                  <InputGroupTextarea
+                    id="contact-message"
+                    name="message"
+                    placeholder="Share the context, timeline, and goals."
+                    required
+                  />
+                </InputGroup>
                 <FieldDescription>
                   This form opens your email client to send the message.
                 </FieldDescription>
@@ -88,19 +142,30 @@ export const ContactFormCard = () => {
             </FieldGroup>
             <AlertDialog>
               <AlertDialogTrigger
-                render={<Button type="submit">Send Message</Button>}
+                render={
+                  <Button type="submit">
+                    Send Message <SendHorizontal />
+                  </Button>
+                }
               />
               <AlertDialogPopup from="top" className="sm:max-w-[425px]">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    Check Your Message Again! &apos;v&apos;)b
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                    Please kindly re-check your email and message.
+                  </AlertDialogDescription>
+                  <AlertDialogDescription>
+                    I&apos;ll send reply to: <b>{email}</b>
+                    <b>{name ? ` (for ${name})` : ''}</b>.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogAction>
+                    Send <SendHorizontal />
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogPopup>
             </AlertDialog>

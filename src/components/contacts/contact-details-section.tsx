@@ -48,7 +48,7 @@ function SocialCardItem({ card }: { card: SocialCard }) {
         <p className="text-sm text-white/80">{card.description}</p>
       </div>
       <div className="relative z-10 flex items-center justify-between gap-4">
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="secondary" size="sm" asChild>
           <a href={card.href} target="_blank" rel="noreferrer">
             {card.cta}
             <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
