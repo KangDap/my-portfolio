@@ -1,6 +1,8 @@
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { LenisProvider } from '@/components/providers/lenis-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { ThemeScript } from '@/components/providers/theme-script';
 import { Pointer } from '@/components/ui/pointer';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
@@ -37,14 +39,20 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full flex flex-col">
-        <LenisProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </LenisProvider>
-        <Pointer />
+        <ThemeProvider>
+          <LenisProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </LenisProvider>
+          <Pointer />
+        </ThemeProvider>
       </body>
     </html>
   );
