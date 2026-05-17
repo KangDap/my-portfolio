@@ -230,7 +230,7 @@ export function ExperiencesTab() {
         onValueChange={(value) => setActiveTab(value as ExperienceCategory)}
         className="w-full"
       >
-        <TabsHighlight className="pointer-events-none absolute inset-0 z-0 rounded-[10px] bg-background/80">
+        <TabsHighlight className="pointer-events-none absolute inset-0 z-0 rounded-[10px] bg-muted/60 dark:bg-background/80">
           <TabsList className="mb-4 inline-flex h-11 w-full gap-2 rounded-[10px] border border-border bg-muted/40 p-1">
             <TabsHighlightItem value="works" className="flex-1 min-w-0">
               <TabsTrigger

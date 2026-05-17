@@ -51,7 +51,10 @@ export function Navbar() {
   const dockLinks = useMemo(
     () =>
       navItems.map((item) => (
-        <DockIcon key={item.label} className="bg-black/10 dark:bg-white/10">
+        <DockIcon
+          key={item.label}
+          className="bg-black/10 dark:bg-white/10 light:bg-black/5"
+        >
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -60,8 +63,8 @@ export function Navbar() {
                 className={cn(
                   'flex size-full items-center justify-center transition-colors duration-300',
                   pathname === item.href
-                    ? 'text-white font-semibold'
-                    : 'text-muted-foreground hover:text-white',
+                    ? 'text-foreground dark:text-white font-semibold'
+                    : 'text-muted-foreground hover:text-foreground dark:hover:text-white',
                 )}
               >
                 <item.icon className="size-5" />
@@ -86,7 +89,7 @@ export function Navbar() {
           className={cn(
             'flex items-center gap-3 rounded px-3 py-2 text-base font-medium transition-all duration-300 ease-in-out',
             pathname === item.href
-              ? 'bg-muted text-white font-semibold'
+              ? 'bg-muted text-foreground dark:text-white font-semibold'
               : 'text-muted-foreground hover:text-foreground hover:scale-110',
           )}
         >
@@ -105,7 +108,7 @@ export function Navbar() {
             href={item.href}
             className={cn(
               'inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out',
-              'text-muted-foreground hover:text-foreground data-[active=true]:text-white',
+              'text-muted-foreground hover:text-foreground data-[active=true]:text-foreground dark:data-[active=true]:text-white',
             )}
           >
             <item.icon className="size-4" />
@@ -243,7 +246,7 @@ export function Navbar() {
                       <div className="flex size-full items-center justify-center">
                         <AnimatedThemeToggler
                           aria-label="Toggle theme"
-                          className="flex size-full items-center justify-center text-muted-foreground transition-colors duration-300 hover:text-white"
+                          className="flex size-full items-center justify-center text-muted-foreground transition-colors duration-300 hover:text-foreground dark:hover:text-white"
                         />
                       </div>
                     </TooltipTrigger>
