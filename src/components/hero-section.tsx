@@ -179,7 +179,7 @@ export function HeroSection() {
               <div data-scroll-reveal-item className="flex flex-col gap-3">
                 <p
                   ref={welcomeRef}
-                  className="text-xs uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
+                  className="text-lg uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
                 >
                   {WELCOME_TEXTS[0]}
                 </p>
