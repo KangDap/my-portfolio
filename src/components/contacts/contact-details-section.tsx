@@ -104,7 +104,7 @@ export function ContactDetailsSection() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="flex flex-col gap-6">
         {socialCards.map((card) => (
           <SocialCardItem key={card.label} card={card} />
         ))}

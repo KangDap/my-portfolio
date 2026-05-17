@@ -1,8 +1,8 @@
-import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar';
 import { LenisProvider } from '@/components/providers/lenis-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { ThemeScript } from '@/components/providers/theme-script';
+import { Footer } from '@/components/ui/footer';
+import { Navbar } from '@/components/ui/navbar';
 import { Pointer } from '@/components/ui/pointer';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';

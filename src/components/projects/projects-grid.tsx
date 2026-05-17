@@ -1,6 +1,6 @@
 'use client';
 
-import { ProjectCard } from '@/components/project-card';
+import { ProjectCard } from '@/components/projects/project-card';
 import type { ProjectItem } from '@/data/projects';
 import { cn } from '@/lib/utils';
 import gsap from 'gsap';

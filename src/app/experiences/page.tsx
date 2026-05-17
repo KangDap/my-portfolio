@@ -1,5 +1,5 @@
-import { ExperiencesTab } from '@/components/experiences-tab';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ExperiencesTab } from '@/components/experiences/experiences-tab';
+import { ScrollReveal } from '@/components/providers/scroll-reveal';
 import { Briefcase } from 'lucide-react';
 import type { Metadata } from 'next';
 

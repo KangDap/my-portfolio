@@ -1,4 +1,4 @@
-import { ExperienceCard } from '@/components/experience-card';
+import { ExperienceCard } from '@/components/experiences/experience-card';
 import { getCurrentExperiences } from '@/data/experiences';
 import { ArrowUpRight, Briefcase } from 'lucide-react';
 import Link from 'next/link';

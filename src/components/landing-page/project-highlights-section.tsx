@@ -1,4 +1,4 @@
-import { ProjectsGrid } from '@/components/projects-grid';
+import { ProjectsGrid } from '@/components/projects/projects-grid';
 import { getFeaturedProjects } from '@/data/projects';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';

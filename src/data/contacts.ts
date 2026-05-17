@@ -65,12 +65,12 @@ export const socialCards: SocialCard[] = [
     icon: 'github',
     theme: 'charcoal',
   },
-  {
-    label: 'Send an Email.',
-    description: 'Drop a message directly.',
-    cta: 'Email Me',
-    href: `mailto:${contactProfile.email}`,
-    icon: 'email',
-    theme: 'emerald',
-  },
+  // {
+  //   label: 'Send an Email.',
+  //   description: 'Drop a message directly.',
+  //   cta: 'Email Me',
+  //   href: `mailto:${contactProfile.email}`,
+  //   icon: 'email',
+  //   theme: 'emerald',
+  // },
 ];

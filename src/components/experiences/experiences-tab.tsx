@@ -7,7 +7,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/animate-ui/primitives/animate/tabs';
-import { ExperienceCard } from '@/components/experience-card';
+import { ExperienceCard } from '@/components/experiences/experience-card';
 import {
   type ExperienceCategory,
   type ExperienceItem,

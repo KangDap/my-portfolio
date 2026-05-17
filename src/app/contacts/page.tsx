@@ -1,6 +1,6 @@
-import { ContactDetailsSection } from '@/components/contact-details-section';
-import { ContactFormCard } from '@/components/contact-form-card';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ContactDetailsSection } from '@/components/contacts/contact-details-section';
+import { ContactFormCard } from '@/components/contacts/contact-form-card';
+import { ScrollReveal } from '@/components/providers/scroll-reveal';
 import { Contact } from 'lucide-react';
 import type { Metadata } from 'next';
 

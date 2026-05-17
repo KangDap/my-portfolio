@@ -1,5 +1,5 @@
-import { ProjectsGrid } from '@/components/projects-grid';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ProjectsGrid } from '@/components/projects/projects-grid';
+import { ScrollReveal } from '@/components/providers/scroll-reveal';
 import { projects } from '@/data/projects';
 import { Folders } from 'lucide-react';
 import type { Metadata } from 'next';
