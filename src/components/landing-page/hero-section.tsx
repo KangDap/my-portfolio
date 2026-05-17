@@ -311,7 +311,7 @@ export function HeroSection() {
                       key={tech.label}
                       data-animate="tech-pill"
                       variant="ghost"
-                      className="h-auto gap-3 px-5 py-2.5 text-sm font-medium transition-all duration-600 ease-out transform-gpu hover:-translate-y-1.5 hover:scale-105 hover:shadow-[0_18px_36px_-24px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_18px_36px_-24px_rgba(255,255,255,0.25)]"
+                      className="h-auto gap-3 px-5 py-2.5 text-sm font-medium transition-all duration-600 ease-out transform-gpu hover:-translate-y-1.5 hover:scale-105"
                     >
                       <span
                         data-icon="inline-start"
