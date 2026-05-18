@@ -4,6 +4,7 @@ import { ThemeScript } from '@/components/providers/theme-script';
 import { Footer } from '@/components/ui/footer';
 import { Navbar } from '@/components/ui/navbar';
 import { Pointer } from '@/components/ui/pointer';
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
 
@@ -51,6 +52,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </LenisProvider>
+          <Toaster />
           <Pointer />
         </ThemeProvider>
       </body>
