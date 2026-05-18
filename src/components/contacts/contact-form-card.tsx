@@ -67,7 +67,9 @@ export const ContactFormCard = () => {
           >
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="contact-name">Name</FieldLabel>
+                <FieldLabel htmlFor="contact-name">
+                  Name <span className="text-destructive">*</span>
+                </FieldLabel>
                 <InputGroup>
                   <InputGroupAddon align="inline-start">
                     <User />
@@ -83,7 +85,9 @@ export const ContactFormCard = () => {
                 </InputGroup>
               </Field>
               <Field>
-                <FieldLabel htmlFor="contact-email">Email</FieldLabel>
+                <FieldLabel htmlFor="contact-email">
+                  Email <span className="text-destructive">*</span>
+                </FieldLabel>
                 <InputGroup>
                   <InputGroupAddon align="inline-start">
                     <Mail />
@@ -100,7 +104,9 @@ export const ContactFormCard = () => {
                 </InputGroup>
               </Field>
               <Field>
-                <FieldLabel htmlFor="contact-subject">Subject</FieldLabel>
+                <FieldLabel htmlFor="contact-subject">
+                  Subject <span className="text-destructive">*</span>
+                </FieldLabel>
                 <InputGroup>
                   <InputGroupAddon align="inline-start">
                     <Heading3 />
@@ -114,7 +120,9 @@ export const ContactFormCard = () => {
                 </InputGroup>
               </Field>
               <Field>
-                <FieldLabel htmlFor="contact-message">Message</FieldLabel>
+                <FieldLabel htmlFor="contact-message">
+                  Message <span className="text-destructive">*</span>
+                </FieldLabel>
                 <InputGroup className="min-h-[200px] items-start max-w-[19.25rem] md:max-w-[29.75rem]">
                   <InputGroupAddon align="block-start" className="border-b">
                     <InputGroupText className="font-mono">
