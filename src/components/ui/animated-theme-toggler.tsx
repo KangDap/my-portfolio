@@ -177,8 +177,18 @@ export const AnimatedThemeToggler = ({
 
     const applyTheme = () => {
       const newTheme = !isDark;
+      const htmlElement = document.documentElement;
+
       setIsDark(newTheme);
-      document.documentElement.classList.toggle('dark');
+
+      if (newTheme) {
+        htmlElement.classList.add('dark');
+        htmlElement.classList.remove('light');
+      } else {
+        htmlElement.classList.add('light');
+        htmlElement.classList.remove('dark');
+      }
+
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
     };
 
