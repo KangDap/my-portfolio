@@ -2,6 +2,7 @@
 
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -31,7 +32,6 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
-import { contactProfile } from '@/data/contacts';
 import { cn } from '@/lib/utils';
 import {
   Heading3,
@@ -43,6 +43,7 @@ import {
   X,
 } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { toast } from 'sonner';
 
 type ContactFormValues = {
   name: string;
@@ -87,6 +88,7 @@ export const ContactFormCard = () => {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const clearFieldError = (field: keyof ContactFormValues, value: string) => {
     const nextValues: ContactFormValues = {
@@ -111,7 +113,7 @@ export const ContactFormCard = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const nextErrors = validateContactForm({
@@ -131,9 +133,52 @@ export const ContactFormCard = () => {
     setIsConfirmOpen(true);
   };
 
+  const handleSendEmail = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error ?? 'Something went wrong.');
+      }
+
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+      setErrors({});
+      setIsConfirmOpen(false);
+
+      return data;
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleConfirmSend = () => {
     setIsConfirmOpen(false);
-    formRef.current?.submit();
+    void toast.promise(handleSendEmail(), {
+      loading: 'Sending message...',
+      success: "Message sent successfully! I'll get back to you soon.",
+      error: 'Failed to send message. Please try again.',
+    });
   };
 
   return (
@@ -149,9 +194,6 @@ export const ContactFormCard = () => {
           <form
             ref={formRef}
             className="flex flex-col gap-6"
-            action={`mailto:${contactProfile.email}`}
-            method="post"
-            encType="text/plain"
             noValidate
             onSubmit={handleSubmit}
           >
@@ -310,8 +352,7 @@ export const ContactFormCard = () => {
                     errors.message ? 'text-destructive' : undefined,
                   )}
                 >
-                  {errors.message ??
-                    'This form opens your email client to send the message.'}
+                  {errors.message ?? 'This form using Resend for mailer.'}
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -334,10 +375,16 @@ export const ContactFormCard = () => {
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <Button type="button" onClick={handleConfirmSend}>
-                    Send <SendHorizontal />
-                  </Button>
+                  <AlertDialogCancel disabled={isLoading}>
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    type="button"
+                    onClick={handleConfirmSend}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Sending...' : 'Send'} <SendHorizontal />
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogPopup>
             </AlertDialog>
