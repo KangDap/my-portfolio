@@ -1,7 +1,6 @@
 import { ContactEmailTemplate } from '@/lib/email/email-template';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'hello@world.com';
 
 type ContactFormData = {
@@ -13,6 +12,15 @@ type ContactFormData = {
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      return Response.json(
+        { error: 'Email service not configured.' },
+        { status: 503 },
+      );
+    }
+
+    const resend = new Resend(apiKey);
     const body: ContactFormData = await request.json();
 
     const { name, email, subject, message } = body;
