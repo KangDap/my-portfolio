@@ -15,8 +15,14 @@ export const projects: ProjectItem[] = [
     title: 'Care Connect',
     description:
       'A psychological consultation and violence reporting platform based on SDG 16.1 with donation features, anonymous report publication, and AI statistical analysis.',
-    image: '',
-    techStack: ['Next.js', 'Tailwind CSS', 'Supabase', 'TanStack Query'],
+    image: '/assets/projects/care-connect-1.png',
+    techStack: [
+      'Next.js',
+      'Tailwind CSS',
+      'Supabase',
+      'TanStack Query',
+      'FastAPI',
+    ],
     liveLink: 'https://example.com/neuro-pulse',
     githubLink: 'https://github.com/KangDap/care-connect',
     isFeatured: true,
@@ -34,7 +40,7 @@ export const projects: ProjectItem[] = [
     title: 'Neuro AI',
     description:
       "Real-time multimodal biometric system solving the 'Black Box Problem' in online education by integrating EEG, eye-tracking, and face recognition for objective engagement measurement.",
-    image: '',
+    image: '/assets/projects/neuro-ai.png',
     techStack: ['Python', 'Muse EEG Headband', 'Next.js', 'FastAPI'],
     liveLink: 'https://neuro-ai-ashy.vercel.app',
     githubLink: 'https://github.com/hdans/Neuro-AI',
@@ -57,7 +63,7 @@ export const projects: ProjectItem[] = [
       'Forecasting Renewable Energy Potential Using Data Mining to Support National Energy Independence',
     description:
       'Data mining project that analyzes and clusters Indonesian provinces based on renewable energy potential using K-Means Clustering.',
-    image: '',
+    image: '/assets/projects/gemastik-2025.png',
     techStack: [
       'Python',
       'K-Means Clustering',
@@ -78,7 +84,7 @@ export const projects: ProjectItem[] = [
       'Sentiment Analysis of Halodoc App Reviews Using a Convolutional Neural Network (CNN) Model with the Lexicon-Based Labeling Method',
     description:
       'Sentiment analysis project on Halodoc app reviews using a Convolutional Neural Network (CNN) model with lexicon-based automatic labeling.',
-    image: '',
+    image: '/assets/projects/datathon-ristek-2025.png',
     techStack: ['Python', 'CNN', 'Lexicon'],
     liveLink: '',
     githubLink: 'https://github.com/abdazizhamud/dapa-ganteng-datathon-ristek',
@@ -90,7 +96,7 @@ export const projects: ProjectItem[] = [
     title: 'Food Price Forecasting with Gradient Boosting',
     description:
       'Machine learning-based forecasting system for Indonesian food prices using XGBoost and Gradient Boosting.',
-    image: '',
+    image: '/assets/projects/arkavidia-2025.png',
     techStack: ['Python', 'XGBoost', 'Optuna', 'Pandas', 'Scikit-learn'],
     liveLink: '',
     githubLink: '',
