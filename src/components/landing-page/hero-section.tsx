@@ -93,7 +93,7 @@ export function HeroSection() {
     const ctx = gsap.context(() => {
       if (!prefersReducedMotion) {
         gsap.to('[data-animate="scroll-indicator"]', {
-          y: 10,
+          y: 15,
           duration: 0.85,
           repeat: -1,
           yoyo: true,
