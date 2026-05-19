@@ -8,7 +8,7 @@ export type ExperienceItem = {
   location: string;
   highlights: string[];
   skills: string[];
-  media?: number;
+  media?: string[];
   logoSrc?: string;
   logoAlt?: string;
 };
@@ -40,7 +40,7 @@ export const experiencesByCategory: Record<
         'Create SLR (Systematic Literature Review) related on Neuroscience fields.',
       ],
       skills: ['Neuroscience', 'Literature Review'],
-      media: 3,
+      media: ['/assets/45108c4c13057e9afdb7a6517bac32c9.jpg'],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'AI Lab logo',
     },
@@ -56,6 +56,7 @@ export const experiencesByCategory: Record<
         'Evaluated and compared 3 machine learning models (SVM, Random Forest, XGBoost) based on performance metrics to select the most efficient model.',
       ],
       skills: ['Python', 'Machine Learning', 'EEG', 'Neuroscience'],
+      media: [],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'PIPP is affiliated with Unpad.',
     },
@@ -82,6 +83,7 @@ export const experiencesByCategory: Record<
         'PHP',
         'Laravel',
       ],
+      media: [],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'Teaching assistant for Computer Science FMIPA Unpad.',
     },
@@ -98,7 +100,7 @@ export const experiencesByCategory: Record<
         'Integrating backend logic for website functionality.',
       ],
       skills: ['Frontend', 'Next.js', 'Communication'],
-      media: 2,
+      media: [],
       logoSrc: '/assets/experiences-tab/org/TEDx Logo.jpeg',
       logoAlt: 'AI Lab logo',
     },
@@ -114,7 +116,7 @@ export const experiencesByCategory: Record<
         'Contributed to the success of teams advancing to national and international competition finals, with three teams qualifying as finalists.',
       ],
       skills: ['Program Management', 'Communication'],
-      media: 2,
+      media: [],
       logoSrc: '/assets/experiences-tab/org/logohimatif.png',
       logoAlt: 'AI Lab logo',
     },
@@ -130,7 +132,7 @@ export const experiencesByCategory: Record<
         'Led execution of Hackathon Day attended by 15 Hackathon finalist teams, ensuring smooth technical and operational delivery.',
       ],
       skills: ['Program Management', 'Communication'],
-      media: 2,
+      media: [],
       logoSrc: '/assets/experiences-tab/org/Logo IFEST 2025.png',
       logoAlt: 'IFEST 2025',
     },
@@ -146,7 +148,7 @@ export const experiencesByCategory: Record<
         'Coordinated and supervised competition execution across all stages, including preliminary rounds, finals, and awarding ceremony.',
       ],
       skills: ['Program Management', 'Communication'],
-      media: 2,
+      media: [],
       logoSrc: '/assets/experiences-tab/org/Logo_IFest_2024.png',
       logoAlt: 'IFEST 2024',
     },
@@ -160,6 +162,7 @@ export const experiencesByCategory: Record<
       location: 'Sumedang, Indonesia',
       highlights: ['Grade: 3.92/4.00 (Update January 2026)'],
       skills: ['Data Science', 'Machine Learning', 'Software Engineering'],
+      media: [],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: "Universitas Padjadjaran's logo.",
     },
@@ -171,6 +174,7 @@ export const experiencesByCategory: Record<
       location: 'Bandung, Indonesia',
       highlights: ['Final Grade: 92.00'],
       skills: ['Organization', 'Time Management'],
+      media: [],
       logoSrc: '/assets/experiences-tab/edu/sman_2_bandung.png',
       logoAlt: "SMAN 2 Bandung's logo.",
     },

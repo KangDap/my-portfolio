@@ -256,13 +256,20 @@ export function ExperienceCard({
                 ))}
               </ul>
 
-              {media ? (
+              {media?.length ? (
                 <div className="flex flex-wrap gap-3">
-                  {Array.from({ length: media }).map((_, index) => (
+                  {media.map((src, index) => (
                     <div
-                      key={index}
-                      className="aspect-video w-24 rounded-md border border-border bg-muted/40 transition-transform duration-300 ease-out hover:scale-105"
-                    />
+                      key={src}
+                      className="relative aspect-video w-24 overflow-hidden rounded-md border border-border bg-muted/40"
+                    >
+                      <Image
+                        src={src}
+                        alt={`${role} media ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   ))}
                 </div>
               ) : null}
