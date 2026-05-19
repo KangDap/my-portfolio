@@ -1,4 +1,4 @@
-import { ProjectCard } from '@/components/projects/project-card';
+import { ProjectsGrid } from '@/components/projects/projects-grid';
 import { ScrollReveal } from '@/components/providers/scroll-reveal';
 import { projects } from '@/data/projects';
 import { Folders } from 'lucide-react';
@@ -38,12 +38,11 @@ export default function ProjectsPage() {
                 page highlights the projects that shaped my growth and skills.
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {projects.map((project) => (
-                <div key={project.title} data-scroll-reveal-item>
-                  <ProjectCard project={project} />
-                </div>
-              ))}
+            <div data-scroll-reveal-item>
+              <ProjectsGrid
+                projects={projects}
+                className="md:grid-cols-2 xl:grid-cols-3"
+              />
             </div>
           </div>
         </section>
