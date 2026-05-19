@@ -199,7 +199,7 @@ export function HeroSection() {
                 className="flex flex-wrap items-center gap-3"
               >
                 <Button size="lg" asChild>
-                  <a href="/resume.pdf" target="_blank" rel="noreferrer">
+                  <a href="/cv.pdf" rel="noreferrer">
                     <IoDocumentTextOutline /> My CV
                   </a>
                 </Button>
