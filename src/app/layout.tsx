@@ -1,4 +1,4 @@
-import { GsapScrollSmoother } from '@/components/providers/gsap-scroll-smoother';
+import { LenisProvider } from '@/components/providers/lenis-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { ThemeScript } from '@/components/providers/theme-script';
 import { Footer } from '@/components/ui/footer';
@@ -47,11 +47,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <GsapScrollSmoother>
+          <LenisProvider>
             <Navbar />
             {children}
             <Footer />
-          </GsapScrollSmoother>
+          </LenisProvider>
           <Toaster />
           <Pointer />
         </ThemeProvider>
