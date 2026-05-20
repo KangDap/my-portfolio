@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { User } from 'lucide-react';
 import Image from 'next/image';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FaArrowDown, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaCode } from 'react-icons/fa6';
 import { IoDocumentTextOutline } from 'react-icons/io5';
@@ -82,6 +82,28 @@ export function HeroSection() {
   const welcomeRef = useRef<HTMLParagraphElement>(null);
   const indexRef = useRef(0);
   const cycleTimerRef = useRef<number | null>(null);
+  const [stackIconVariant, setStackIconVariant] = useState<'dark' | 'light'>(
+    () =>
+      typeof document !== 'undefined' &&
+      document.documentElement.classList.contains('dark')
+        ? 'dark'
+        : 'light',
+  );
+
+  useEffect(() => {
+    const getVariant = () =>
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const observer = new MutationObserver(() => {
+      setStackIconVariant(getVariant());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -328,7 +350,7 @@ export function HeroSection() {
                         <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-600 ease-out group-hover/badge:opacity-100">
                           <StackIcon
                             name={tech.icon}
-                            variant="dark"
+                            variant={stackIconVariant}
                             className="size-6"
                           />
                         </span>
