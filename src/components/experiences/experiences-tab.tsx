@@ -15,6 +15,7 @@ import {
   experiencesByCategory,
 } from '@/data/experiences';
 import gsap from 'gsap';
+import { useLenis } from 'lenis/react';
 import { BriefcaseBusiness, GraduationCap, Users } from 'lucide-react';
 import { useLayoutEffect, useRef, useState } from 'react';
 
@@ -33,6 +34,7 @@ function TabPanel({ tab }: { tab: ExperienceCategory }) {
 }
 
 function useAnimatedTabHeight(activeTab: ExperienceCategory) {
+  const lenis = useLenis();
   const stageRef = useRef<HTMLDivElement>(null);
   const measureRefs = useRef<Record<ExperienceCategory, HTMLDivElement | null>>(
     {
@@ -96,6 +98,7 @@ function useAnimatedTabHeight(activeTab: ExperienceCategory) {
         setDisplayedTab(activeTab);
         setTransition(null);
         gsap.set(stage, { height: 'auto', overflow: 'visible' });
+        lenis?.resize();
         return;
       }
 
@@ -106,6 +109,7 @@ function useAnimatedTabHeight(activeTab: ExperienceCategory) {
           setTransition(null);
           rafRef.current = requestAnimationFrame(() => {
             gsap.set(stage, { height: 'auto', overflow: 'visible' });
+            lenis?.resize();
           });
         },
       });
@@ -152,14 +156,15 @@ function useAnimatedTabHeight(activeTab: ExperienceCategory) {
         rafRef.current = null;
       }
     };
-  }, [activeTab, displayedTab]);
+  }, [activeTab, displayedTab, lenis]);
 
   useLayoutEffect(() => {
     const stage = stageRef.current;
     if (!stage || transition) return;
 
     gsap.set(stage, { height: 'auto', overflow: 'visible' });
-  }, [displayedTab, transition]);
+    lenis?.resize();
+  }, [displayedTab, transition, lenis]);
 
   return {
     stageRef,
