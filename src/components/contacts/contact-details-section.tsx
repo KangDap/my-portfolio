@@ -74,15 +74,15 @@ export function ContactDetailsSection() {
             const Icon = infoIconMap[item.icon];
             return (
               <div key={item.label} className="flex items-start gap-3">
-                <Icon
-                  data-icon="inline-start"
-                  className="mt-1 text-muted-foreground"
-                  aria-hidden="true"
-                />
                 <div>
-                  <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
-                    {item.label}
-                  </p>
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                    <Icon
+                      data-icon="inline-start"
+                      className="size-4"
+                      aria-hidden="true"
+                    />
+                    <span>{item.label}</span>
+                  </div>
                   {item.href ? (
                     <Link
                       className="group text-base font-medium text-foreground"
