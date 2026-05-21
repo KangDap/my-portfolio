@@ -310,7 +310,7 @@ export const ContactFormCard = () => {
                 </FieldLabel>
                 <InputGroup
                   aria-invalid={Boolean(errors.message)}
-                  className="min-h-[200px] max-w-[19.25rem] items-start md:max-w-[29.75rem]"
+                  className="min-h-[200px] max-w-[19.25rem] items-start md:max-w-[39.75rem]"
                 >
                   <InputGroupAddon align="block-start" className="border-b">
                     <InputGroupText className="font-mono">

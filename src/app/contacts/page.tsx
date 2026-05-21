@@ -40,7 +40,7 @@ export default function ContactsPage() {
               </p>
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
               <ContactDetailsSection />
               <ContactFormCard />
             </div>
