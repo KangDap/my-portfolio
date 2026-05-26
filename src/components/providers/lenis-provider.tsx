@@ -5,6 +5,18 @@ import { ReactLenis, useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useEffect, useState } from 'react';
 
+function LenisScrollToTopOnRoute() {
+  const lenis = useLenis();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!lenis) return;
+    // Scroll to top instantly on route change
+    lenis.scrollTo(0, { immediate: true });
+  }, [lenis, pathname]);
+  return null;
+}
+
 type LenisProviderProps = {
   children: ReactNode;
 };
@@ -49,6 +61,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
   return (
     <ReactLenis key={restoreKey} root options={lenisOptions}>
+      <LenisScrollToTopOnRoute />
       <LenisResizeOnRoute />
       {children}
     </ReactLenis>
