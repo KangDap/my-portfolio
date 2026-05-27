@@ -1,6 +1,7 @@
 'use client';
 
 import { ProjectCard } from '@/components/projects/project-card';
+import { useRouteAnimationReady } from '@/components/providers/lenis-provider';
 import type { ProjectItem } from '@/data/projects';
 import { cn } from '@/lib/utils';
 import gsap from 'gsap';
@@ -14,10 +15,11 @@ type ProjectsGridProps = {
 
 export function ProjectsGrid({ projects, className }: ProjectsGridProps) {
   const gridRef = useRef<HTMLDivElement>(null);
+  const routeAnimationReady = useRouteAnimationReady();
 
   useLayoutEffect(() => {
     const grid = gridRef.current;
-    if (!grid || projects.length === 0) {
+    if (!grid || projects.length === 0 || !routeAnimationReady) {
       return;
     }
 
@@ -62,10 +64,15 @@ export function ProjectsGrid({ projects, className }: ProjectsGridProps) {
     }, grid);
 
     return () => ctx.revert();
-  }, [projects.length]);
+  }, [projects.length, routeAnimationReady]);
 
   return (
-    <div ref={gridRef} className={cn('grid gap-6', className)}>
+    <div
+      ref={gridRef}
+      className={cn('grid gap-6', className)}
+      data-project-grid
+      data-route-animation-pending={routeAnimationReady ? undefined : ''}
+    >
       {projects.map((project) => (
         <div key={project.title} data-project-card>
           <ProjectCard project={project} />

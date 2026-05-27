@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouteAnimationReady } from '@/components/providers/lenis-provider';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { type ReactNode, useLayoutEffect, useRef } from 'react';
@@ -53,10 +54,11 @@ export function ScrollReveal({
   revealOnLoad = false,
 }: ScrollRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const routeAnimationReady = useRouteAnimationReady();
 
   useLayoutEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || !routeAnimationReady) return;
 
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
@@ -152,7 +154,15 @@ export function ScrollReveal({
     }, container);
 
     return () => ctx.revert();
-  }, [selector, revealOnLoad]);
+  }, [routeAnimationReady, selector, revealOnLoad]);
 
-  return <div ref={containerRef}>{children}</div>;
+  return (
+    <div
+      ref={containerRef}
+      data-route-animation-pending={routeAnimationReady ? undefined : ''}
+      data-scroll-reveal-root
+    >
+      {children}
+    </div>
+  );
 }

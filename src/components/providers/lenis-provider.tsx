@@ -1,19 +1,66 @@
 'use client';
 
 import { usePageShow } from '@/hooks/use-page-show';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis, useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
-import { type ReactNode, useEffect, useState } from 'react';
+import {
+  type ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from 'react';
 
-function LenisScrollToTopOnRoute() {
+const RouteAnimationReadyContext = createContext(true);
+
+export function useRouteAnimationReady() {
+  return useContext(RouteAnimationReadyContext);
+}
+
+type RouteAnimationState = {
+  pathname: string;
+  ready: boolean;
+};
+
+type LenisRouteCoordinatorProps = {
+  pathname: string;
+  setRouteAnimationReady: (pathname: string, ready: boolean) => void;
+};
+
+function LenisRouteCoordinator({
+  pathname,
+  setRouteAnimationReady,
+}: LenisRouteCoordinatorProps) {
   const lenis = useLenis();
-  const pathname = usePathname();
 
-  useEffect(() => {
-    if (!lenis) return;
-    // Scroll to top instantly on route change
-    lenis.scrollTo(0, { immediate: true });
-  }, [lenis, pathname]);
+  useLayoutEffect(() => {
+    let refreshFrame = 0;
+    let readyFrame = 0;
+
+    setRouteAnimationReady(pathname, false);
+
+    window.scrollTo(0, 0);
+    lenis?.scrollTo(0, { immediate: true });
+    lenis?.resize();
+
+    refreshFrame = requestAnimationFrame(() => {
+      lenis?.resize();
+      ScrollTrigger.refresh();
+
+      readyFrame = requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        setRouteAnimationReady(pathname, true);
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(refreshFrame);
+      cancelAnimationFrame(readyFrame);
+    };
+  }, [lenis, pathname, setRouteAnimationReady]);
+
   return null;
 }
 
@@ -28,25 +75,24 @@ const lenisOptions = {
   touchMultiplier: 1.5,
 };
 
-function LenisResizeOnRoute() {
-  const lenis = useLenis();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (!lenis) return;
-
-    const frame = requestAnimationFrame(() => {
-      lenis.resize();
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [lenis, pathname]);
-
-  return null;
-}
-
 export function LenisProvider({ children }: LenisProviderProps) {
+  const pathname = usePathname();
   const [restoreKey, setRestoreKey] = useState(0);
+  const [routeAnimationState, setRouteAnimationState] =
+    useState<RouteAnimationState>(() => ({
+      pathname,
+      ready: true,
+    }));
+
+  const setRouteAnimationReady = useCallback(
+    (nextPathname: string, ready: boolean) => {
+      setRouteAnimationState({ pathname: nextPathname, ready });
+    },
+    [],
+  );
+
+  const routeAnimationReady =
+    routeAnimationState.pathname === pathname && routeAnimationState.ready;
 
   usePageShow((event) => {
     const shouldRestore =
@@ -61,9 +107,13 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
   return (
     <ReactLenis key={restoreKey} root options={lenisOptions}>
-      <LenisScrollToTopOnRoute />
-      <LenisResizeOnRoute />
-      {children}
+      <RouteAnimationReadyContext.Provider value={routeAnimationReady}>
+        <LenisRouteCoordinator
+          pathname={pathname}
+          setRouteAnimationReady={setRouteAnimationReady}
+        />
+        {children}
+      </RouteAnimationReadyContext.Provider>
     </ReactLenis>
   );
 }
