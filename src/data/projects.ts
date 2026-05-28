@@ -12,7 +12,17 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
-    title: 'Care Connect',
+    title: 'TEDxPadjadjaran University 2026 Website',
+    description:
+      'The official website of TEDxPadjadjaran University 2026, providing information about TEDx pre-event and main event, local speaker application, and ticketing.',
+    image: '/assets/projects/tedx-pu2026.png',
+    techStack: ['Next.js', 'Tailwind CSS', 'Supabase', 'GSAP', 'Resend'],
+    liveLink: 'https://tedxpadjadjaranuniversity.com/',
+    githubLink: 'https://github.com/KangDap/care-connect',
+    isFeatured: true,
+  },
+  {
+    title: 'CareConnect',
     description:
       'A psychological consultation and violence reporting platform based on SDG 16.1 with donation features, anonymous report publication, and AI statistical analysis.',
     image: '/assets/projects/care-connect-1.png',
@@ -20,28 +30,71 @@ export const projects: ProjectItem[] = [
       'Next.js',
       'Tailwind CSS',
       'Supabase',
+      'Better Auth',
+      'Midtrans',
       'TanStack Query',
       'FastAPI',
+      'Apriori Algorithm',
     ],
     liveLink: 'https://example.com/neuro-pulse',
     githubLink: 'https://github.com/KangDap/care-connect',
     isFeatured: true,
   },
   {
+    title: 'NusaGraph',
+    description:
+      'Website for exploring Indonesian geographic entities through semantic search, RDF-based data representation, GeoNames Ontology, and SPARQL query exploration.',
+    image: '',
+    techStack: [
+      'Next.js',
+      'Tailwind CSS',
+      'SPARQL',
+      'Ontology',
+      'GeoNames',
+      'Leaflet JS',
+    ],
+    liveLink: 'https://example.com/neuro-pulse',
+    githubLink: 'https://github.com/Kurtz17/NusaGraph',
+    isFeatured: false,
+  },
+  {
     title: 'MediProfen',
     description:
       'A VR Game built with Unity based on SDG 3.c that simulate first aid simulations, aiming to give civil/medical students Emergency Decision Training.',
     image: '',
-    techStack: ['Unity', 'C#', 'Blender 3D'],
+    techStack: ['Unity', 'C#', 'Blender 3D', 'Meta Quest 2 VR'],
     githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
-    isFeatured: true,
+    isFeatured: false,
+  },
+  {
+    title: 'Aerosweep',
+    description:
+      'A Neuro-Fuzzy Hybrid System to detect and clustering waste using UAV view, using ANN and Fuzzy Inference optimized by Genetic Algorithm.',
+    image: '',
+    techStack: [
+      'Python',
+      'Artificial Neural Network',
+      'Fuzzy Inference System',
+      'Genetic Algorithm',
+    ],
+    githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
+    isFeatured: false,
   },
   {
     title: 'Neuro AI',
     description:
       "Real-time multimodal biometric system solving the 'Black Box Problem' in online education by integrating EEG, eye-tracking, and face recognition for objective engagement measurement.",
     image: '/assets/projects/neuro-ai.png',
-    techStack: ['Python', 'Muse EEG Headband', 'Next.js', 'FastAPI'],
+    techStack: [
+      'Python',
+      'Muse S Headband (EEG)',
+      'Next.js',
+      'FastAPI',
+      'muselsl',
+      'XGBoost',
+      'SVM',
+      'Random Forest',
+    ],
     liveLink: 'https://neuro-ai-ashy.vercel.app',
     githubLink: 'https://github.com/hdans/Neuro-AI',
     paperLink: '',
@@ -54,7 +107,14 @@ export const projects: ProjectItem[] = [
     description:
       'A web-based customer segmentation application using RFM analysis and K-Means clustering to support data-driven marketing strategies.',
     image: '',
-    techStack: ['HTML', 'CSS', 'JavaScript', 'Python', 'Flask'],
+    techStack: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Python',
+      'Flask',
+      'K-Means Clustering',
+    ],
     githubLink: 'https://github.com/KangDap/coren',
     isFeatured: false,
   },
@@ -85,7 +145,7 @@ export const projects: ProjectItem[] = [
     description:
       'Sentiment analysis project on Halodoc app reviews using a Convolutional Neural Network (CNN) model with lexicon-based automatic labeling.',
     image: '/assets/projects/datathon-ristek-2025.png',
-    techStack: ['Python', 'CNN', 'Lexicon'],
+    techStack: ['Python', 'CNN', 'Lexicon', 'NLTK', 'Sastrawi'],
     liveLink: '',
     githubLink: 'https://github.com/abdazizhamud/dapa-ganteng-datathon-ristek',
     paperLink: '',

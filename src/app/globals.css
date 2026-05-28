@@ -219,6 +219,27 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-route-transition-pending] main,
+    [data-route-transition-pending] footer {
+      opacity: 0;
+    }
+
+    [data-scroll-reveal-root][data-route-animation-pending]
+      [data-scroll-reveal-item],
+    [data-scroll-reveal-root][data-route-animation-pending]
+      [data-scroll-reveal]:not([data-scroll-reveal-group]) {
+      opacity: 0;
+      transform: translate3d(0, 180px, 0);
+    }
+
+    [data-project-grid][data-route-animation-pending] [data-project-card] {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+  }
+
   html {
     @apply font-sans;
   }
