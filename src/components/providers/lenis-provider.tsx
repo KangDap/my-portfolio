@@ -36,28 +36,42 @@ function LenisRouteCoordinator({
   const lenis = useLenis();
 
   useLayoutEffect(() => {
-    let refreshFrame = 0;
-    let readyFrame = 0;
+    let frame = 0;
+    let readyTimer = 0;
+
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      lenis?.scrollTo(0, { immediate: true });
+      lenis?.resize();
+    };
+
+    const settleScroll = (remainingFrames: number) => {
+      frame = requestAnimationFrame(() => {
+        resetScroll();
+        ScrollTrigger.refresh();
+
+        if (remainingFrames > 0) {
+          settleScroll(remainingFrames - 1);
+          return;
+        }
+
+        readyTimer = window.setTimeout(() => {
+          resetScroll();
+          ScrollTrigger.refresh();
+          setRouteAnimationReady(pathname, true);
+        }, 0);
+      });
+    };
 
     setRouteAnimationReady(pathname, false);
-
-    window.scrollTo(0, 0);
-    lenis?.scrollTo(0, { immediate: true });
-    lenis?.resize();
-
-    refreshFrame = requestAnimationFrame(() => {
-      lenis?.resize();
-      ScrollTrigger.refresh();
-
-      readyFrame = requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-        setRouteAnimationReady(pathname, true);
-      });
-    });
+    resetScroll();
+    settleScroll(2);
 
     return () => {
-      cancelAnimationFrame(refreshFrame);
-      cancelAnimationFrame(readyFrame);
+      cancelAnimationFrame(frame);
+      window.clearTimeout(readyTimer);
     };
   }, [lenis, pathname, setRouteAnimationReady]);
 
@@ -112,7 +126,11 @@ export function LenisProvider({ children }: LenisProviderProps) {
           pathname={pathname}
           setRouteAnimationReady={setRouteAnimationReady}
         />
-        {children}
+        <div
+          data-route-transition-pending={routeAnimationReady ? undefined : ''}
+        >
+          {children}
+        </div>
       </RouteAnimationReadyContext.Provider>
     </ReactLenis>
   );

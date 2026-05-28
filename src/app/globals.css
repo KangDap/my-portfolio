@@ -221,6 +221,11 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    [data-route-transition-pending] main,
+    [data-route-transition-pending] footer {
+      opacity: 0;
+    }
+
     [data-scroll-reveal-root][data-route-animation-pending]
       [data-scroll-reveal-item],
     [data-scroll-reveal-root][data-route-animation-pending]
