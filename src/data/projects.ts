@@ -67,6 +67,20 @@ export const projects: ProjectItem[] = [
     isFeatured: false,
   },
   {
+    title: 'Aerosweep',
+    description:
+      'A Neuro-Fuzzy Hybrid System to detect and clustering waste using UAV view, using ANN and Fuzzy Inference optimized by Genetic Algorithm.',
+    image: '',
+    techStack: [
+      'Python',
+      'Artificial Neural Network',
+      'Fuzzy Inference System',
+      'Genetic Algorithm',
+    ],
+    githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
+    isFeatured: false,
+  },
+  {
     title: 'Neuro AI',
     description:
       "Real-time multimodal biometric system solving the 'Black Box Problem' in online education by integrating EEG, eye-tracking, and face recognition for objective engagement measurement.",
