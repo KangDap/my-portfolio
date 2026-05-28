@@ -1,6 +1,5 @@
 'use client';
 
-import { usePageShow } from '@/hooks/use-page-show';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ReactLenis, useLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
@@ -9,7 +8,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -34,8 +35,17 @@ function LenisRouteCoordinator({
   setRouteAnimationReady,
 }: LenisRouteCoordinatorProps) {
   const lenis = useLenis();
+  const coordinatedPathnameRef = useRef<string | null>(null);
 
   useLayoutEffect(() => {
+    if (coordinatedPathnameRef.current === pathname) {
+      lenis?.resize();
+      ScrollTrigger.refresh();
+      return;
+    }
+
+    coordinatedPathnameRef.current = pathname;
+
     let frame = 0;
     let readyTimer = 0;
 
@@ -78,6 +88,41 @@ function LenisRouteCoordinator({
   return null;
 }
 
+function LenisVisibilityRefresh() {
+  const lenis = useLenis();
+
+  useEffect(() => {
+    let frame = 0;
+
+    const refresh = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        lenis?.resize();
+        ScrollTrigger.refresh();
+      });
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        refresh();
+      }
+    };
+
+    window.addEventListener('pageshow', refresh);
+    window.addEventListener('focus', refresh);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pageshow', refresh);
+      window.removeEventListener('focus', refresh);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [lenis]);
+
+  return null;
+}
+
 type LenisProviderProps = {
   children: ReactNode;
 };
@@ -91,7 +136,6 @@ const lenisOptions = {
 
 export function LenisProvider({ children }: LenisProviderProps) {
   const pathname = usePathname();
-  const [restoreKey, setRestoreKey] = useState(0);
   const [routeAnimationState, setRouteAnimationState] =
     useState<RouteAnimationState>(() => ({
       pathname,
@@ -108,20 +152,10 @@ export function LenisProvider({ children }: LenisProviderProps) {
   const routeAnimationReady =
     routeAnimationState.pathname === pathname && routeAnimationState.ready;
 
-  usePageShow((event) => {
-    const shouldRestore =
-      event.type === 'pageshow' ||
-      (event.type === 'visibilitychange' &&
-        document.visibilityState === 'visible');
-
-    if (shouldRestore) {
-      setRestoreKey((prev) => prev + 1);
-    }
-  });
-
   return (
-    <ReactLenis key={restoreKey} root options={lenisOptions}>
+    <ReactLenis root options={lenisOptions}>
       <RouteAnimationReadyContext.Provider value={routeAnimationReady}>
+        <LenisVisibilityRefresh />
         <LenisRouteCoordinator
           pathname={pathname}
           setRouteAnimationReady={setRouteAnimationReady}
