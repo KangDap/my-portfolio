@@ -41,10 +41,9 @@ function LenisRouteCoordinator({
     if (coordinatedPathnameRef.current === pathname) {
       lenis?.resize();
       ScrollTrigger.refresh();
+      setRouteAnimationReady(pathname, true);
       return;
     }
-
-    coordinatedPathnameRef.current = pathname;
 
     let frame = 0;
     let readyTimer = 0;
@@ -70,6 +69,7 @@ function LenisRouteCoordinator({
         readyTimer = window.setTimeout(() => {
           resetScroll();
           ScrollTrigger.refresh();
+          coordinatedPathnameRef.current = pathname;
           setRouteAnimationReady(pathname, true);
         }, 0);
       });
