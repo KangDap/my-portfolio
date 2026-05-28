@@ -43,7 +43,7 @@ export const projects: ProjectItem[] = [
   {
     title: 'NusaGraph',
     description:
-      'A psychological consultation and violence reporting platform based on SDG 16.1 with donation features, anonymous report publication, and AI statistical analysis.',
+      'Website for exploring Indonesian geographic entities through semantic search, RDF-based data representation, GeoNames Ontology, and SPARQL query exploration.',
     image: '',
     techStack: [
       'Next.js',
