@@ -1,5 +1,9 @@
 'use client';
 
+import {
+  Tilt,
+  TiltContent,
+} from '@/components/animate-ui/primitives/effects/tilt';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import gsap from 'gsap';
@@ -246,10 +250,14 @@ export function HeroSection() {
               data-scroll-reveal-item
               className="flex justify-center lg:justify-end"
             >
-              <ProfileCard
-                src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
-                alt="Profile Photo"
-              />
+              <Tilt className="w-full max-w-sm" maxTilt={8} perspective={900}>
+                <TiltContent className="transform-3d transition-shadow duration-300 hover:shadow-2xl">
+                  <ProfileCard
+                    src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                    alt="Profile Photo"
+                  />
+                </TiltContent>
+              </Tilt>
             </div>
           </div>
 
