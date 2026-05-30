@@ -193,7 +193,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative overflow-hidden bg-background">
+    <div ref={sectionRef} className="relative overflow-hidden">
       <section data-scroll-reveal-group className="relative min-h-[100svh]">
         <div className="mx-auto relative flex min-h-[100svh] w-full max-w-6xl flex-col justify-center px-6 py-14 lg:py-20">
           <div className="grid w-full gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">

@@ -4,6 +4,7 @@ import { ThemeScript } from '@/components/providers/theme-script';
 import { Footer } from '@/components/ui/footer';
 import { Navbar } from '@/components/ui/navbar';
 import { Pointer } from '@/components/ui/pointer';
+import { SiteParticlesBackground } from '@/components/ui/site-particles-background';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <LenisProvider>
+            <SiteParticlesBackground />
             <Navbar />
             {children}
             <Footer />
