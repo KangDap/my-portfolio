@@ -1,9 +1,10 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type CarouselImage = {
   src: string;
@@ -21,12 +22,45 @@ type EmblaEventName = Parameters<Parameters<EmblaApi['on']>[1]>[1];
 const TWEEN_FACTOR_BASE = 0.2;
 
 export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: 'center',
-  });
+  const autoplay = useMemo(
+    () =>
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    [],
+  );
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: 'center',
+    },
+    [autoplay],
+  );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const pauseAutoplay = useCallback(() => {
+    autoplay.stop();
+  }, [autoplay]);
+
+  const playAutoplay = useCallback(() => {
+    autoplay.play();
+  }, [autoplay]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      emblaApi?.scrollTo(index);
+      autoplay.reset();
+    },
+    [autoplay, emblaApi],
+  );
+
+  const updateSelectedIndex = useCallback((api: EmblaApi) => {
+    setSelectedIndex(api.selectedScrollSnap());
+  }, []);
 
   const setTweenNodes = useCallback((api: EmblaApi) => {
     tweenNodes.current = api
@@ -91,19 +125,38 @@ export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
     setTweenNodes(emblaApi);
     setTweenFactor(emblaApi);
     tweenParallax(emblaApi);
+    const frame = requestAnimationFrame(() => {
+      updateSelectedIndex(emblaApi);
+    });
 
     emblaApi
       .on('reInit', setTweenNodes)
       .on('reInit', setTweenFactor)
       .on('reInit', tweenParallax)
+      .on('reInit', updateSelectedIndex)
+      .on('select', updateSelectedIndex)
       .on('scroll', tweenParallax)
       .on('slideFocus', tweenParallax);
-  }, [emblaApi, setTweenFactor, setTweenNodes, tweenParallax]);
+
+    return () => cancelAnimationFrame(frame);
+  }, [
+    emblaApi,
+    setTweenFactor,
+    setTweenNodes,
+    tweenParallax,
+    updateSelectedIndex,
+  ]);
 
   if (images.length === 0) return null;
 
   return (
-    <div className={cn('w-full max-w-sm', className)}>
+    <div
+      className={cn('w-full max-w-sm', className)}
+      onMouseEnter={pauseAutoplay}
+      onMouseLeave={playAutoplay}
+      onFocus={pauseAutoplay}
+      onBlur={playAutoplay}
+    >
       <div
         ref={emblaRef}
         className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
@@ -128,6 +181,29 @@ export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-4 flex items-center justify-center gap-2">
+        {images.map((image, index) => {
+          const isSelected = index === selectedIndex;
+
+          return (
+            <button
+              key={image.src}
+              type="button"
+              aria-label={`Go to image ${index + 1}`}
+              aria-current={isSelected ? 'true' : undefined}
+              onClick={() => scrollTo(index)}
+              className={cn(
+                'h-2 rounded-full transition-all duration-300 ease-out',
+                'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none',
+                isSelected
+                  ? 'w-7 bg-foreground'
+                  : 'w-2 bg-muted-foreground/35 hover:bg-muted-foreground/60',
+              )}
+            />
+          );
+        })}
       </div>
     </div>
   );
