@@ -40,22 +40,40 @@ export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
+  const restartFrame = useRef(0);
+  const hasPointerInteraction = useRef(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const getAutoplay = useCallback(() => {
+    return emblaApi?.plugins().autoplay;
+  }, [emblaApi]);
+
   const pauseAutoplay = useCallback(() => {
-    autoplay.stop();
-  }, [autoplay]);
+    getAutoplay()?.stop();
+  }, [getAutoplay]);
 
   const playAutoplay = useCallback(() => {
-    autoplay.play();
-  }, [autoplay]);
+    getAutoplay()?.play();
+  }, [getAutoplay]);
+
+  const restartAutoplay = useCallback(() => {
+    const autoplayApi = getAutoplay();
+
+    if (!autoplayApi) return;
+
+    window.cancelAnimationFrame(restartFrame.current);
+    autoplayApi.stop();
+    restartFrame.current = window.requestAnimationFrame(() => {
+      getAutoplay()?.play();
+    });
+  }, [getAutoplay]);
 
   const scrollTo = useCallback(
     (index: number) => {
       emblaApi?.scrollTo(index);
-      autoplay.reset();
+      restartAutoplay();
     },
-    [autoplay, emblaApi],
+    [emblaApi, restartAutoplay],
   );
 
   const updateSelectedIndex = useCallback((api: EmblaApi) => {
@@ -129,18 +147,36 @@ export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
       updateSelectedIndex(emblaApi);
     });
 
+    const handlePointerDown = () => {
+      hasPointerInteraction.current = true;
+    };
+
+    const handleSelect = (api: EmblaApi) => {
+      updateSelectedIndex(api);
+
+      if (!hasPointerInteraction.current) return;
+
+      hasPointerInteraction.current = false;
+      restartAutoplay();
+    };
+
     emblaApi
       .on('reInit', setTweenNodes)
       .on('reInit', setTweenFactor)
       .on('reInit', tweenParallax)
       .on('reInit', updateSelectedIndex)
-      .on('select', updateSelectedIndex)
+      .on('pointerDown', handlePointerDown)
+      .on('select', handleSelect)
       .on('scroll', tweenParallax)
       .on('slideFocus', tweenParallax);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(restartFrame.current);
+    };
   }, [
     emblaApi,
+    restartAutoplay,
     setTweenFactor,
     setTweenNodes,
     tweenParallax,
