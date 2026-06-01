@@ -6,6 +6,7 @@ import {
 } from '@/components/animate-ui/primitives/effects/tilt';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ParallaxCarousel } from '@/components/ui/parallax-carousel';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { User } from 'lucide-react';
@@ -62,6 +63,25 @@ const socialLinks = [
     label: 'Instagram',
     href: 'https://instagram.com/dafa.ghani',
     icon: FaInstagram,
+  },
+];
+
+const aboutStackImages = [
+  {
+    src: '/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg',
+    alt: 'Dafa Ghani profile photo',
+  },
+  {
+    src: '/assets/profile/ganyu geming.jpg',
+    alt: 'TEDx Padjadjaran University 2026 project preview',
+  },
+  {
+    src: '/assets/profile/aaaaaa.jpg',
+    alt: 'Care Connect project preview',
+  },
+  {
+    src: '/assets/profile/estehmanis.jpg',
+    alt: 'Neuro AI project preview',
   },
 ];
 
@@ -253,7 +273,7 @@ export function HeroSection() {
               <Tilt className="w-full max-w-sm" maxTilt={8} perspective={900}>
                 <TiltContent className="transform-3d transition-shadow duration-300 hover:shadow-2xl">
                   <ProfileCard
-                    src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                    src="/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg"
                     alt="Profile Photo"
                   />
                 </TiltContent>
@@ -284,10 +304,7 @@ export function HeroSection() {
               data-scroll-reveal-item
               className="flex justify-center lg:justify-start"
             >
-              <ProfileCard
-                src="/assets/45108c4c13057e9afdb7a6517bac32c9.jpg"
-                alt="Profile Photo"
-              />
+              <ParallaxCarousel images={aboutStackImages} />
             </div>
             <div data-animate="about-right" className="flex flex-col gap-9">
               <div data-scroll-reveal-item className="flex flex-col gap-3">
