@@ -2,6 +2,7 @@ import { LenisProvider } from '@/components/providers/lenis-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { ThemeScript } from '@/components/providers/theme-script';
 import { Footer } from '@/components/ui/footer';
+import { InitialPageLoader } from '@/components/ui/initial-page-loader';
 import { Navbar } from '@/components/ui/navbar';
 import { Pointer } from '@/components/ui/pointer';
 import { SiteParticlesBackground } from '@/components/ui/site-particles-background';
@@ -48,6 +49,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
+          <InitialPageLoader />
           <LenisProvider>
             <SiteParticlesBackground />
             <Navbar />

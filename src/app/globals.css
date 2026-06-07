@@ -292,6 +292,95 @@
     background-size: 22px 22px;
     opacity: 0.7;
   }
+
+  .loader-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 200px;
+    height: 60px;
+  }
+
+  .loader-circle {
+    position: absolute;
+    left: 15%;
+    width: 20px;
+    height: 20px;
+    transform-origin: 50%;
+    border-radius: 50%;
+    background-color: var(--foreground);
+    animation: loader-circle7124 0.5s alternate infinite ease;
+  }
+
+  .loader-circle:nth-child(2) {
+    left: 45%;
+    animation-delay: 0.2s;
+  }
+
+  .loader-circle:nth-child(3) {
+    right: 15%;
+    left: auto;
+    animation-delay: 0.3s;
+  }
+
+  .loader-shadow {
+    position: absolute;
+    z-index: -1;
+    top: 62px;
+    left: 15%;
+    width: 20px;
+    height: 4px;
+    transform-origin: 50%;
+    border-radius: 50%;
+    background-color: color-mix(in oklch, var(--foreground) 90%, transparent);
+    filter: blur(1px);
+    animation: loader-shadow046 0.5s alternate infinite ease;
+  }
+
+  .loader-shadow:nth-child(4) {
+    left: 45%;
+    animation-delay: 0.2s;
+  }
+
+  .loader-shadow:nth-child(5) {
+    right: 15%;
+    left: auto;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes loader-circle7124 {
+    0% {
+      top: 60px;
+      height: 5px;
+      border-radius: 50px 50px 25px 25px;
+      transform: scaleX(1.7);
+    }
+
+    40% {
+      height: 20px;
+      border-radius: 50%;
+      transform: scaleX(1);
+    }
+
+    100% {
+      top: 0%;
+    }
+  }
+
+  @keyframes loader-shadow046 {
+    0% {
+      transform: scaleX(1.5);
+    }
+
+    40% {
+      transform: scaleX(1);
+      opacity: 0.7;
+    }
+
+    100% {
+      transform: scaleX(0.2);
+      opacity: 0.4;
+    }
+  }
 }
 
 ::view-transition-old(root),
