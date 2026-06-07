@@ -36,7 +36,7 @@ export const projects: ProjectItem[] = [
       'FastAPI',
       'Apriori Algorithm',
     ],
-    liveLink: 'https://example.com/neuro-pulse',
+    liveLink: 'https://care-connect-ten-hazel.vercel.app/',
     githubLink: 'https://github.com/KangDap/care-connect',
     isFeatured: true,
   },
@@ -77,7 +77,7 @@ export const projects: ProjectItem[] = [
       'Fuzzy Inference System',
       'Genetic Algorithm',
     ],
-    githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
+    githubLink: 'https://github.com/KangDap/aerosweep',
     isFeatured: false,
   },
   {
