@@ -68,20 +68,16 @@ const socialLinks = [
 
 const aboutStackImages = [
   {
-    src: '/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg',
+    src: '/assets/profile/IMG_3492.jpg',
     alt: 'Dafa Ghani profile photo',
   },
   {
-    src: '/assets/profile/ganyu geming.jpg',
-    alt: 'TEDx Padjadjaran University 2026 project preview',
+    src: '/assets/profile/IMG_0238.jpg',
+    alt: 'Dafa Ghani profile photo',
   },
   {
-    src: '/assets/profile/aaaaaa.jpg',
-    alt: 'Care Connect project preview',
-  },
-  {
-    src: '/assets/profile/estehmanis.jpg',
-    alt: 'Neuro AI project preview',
+    src: '/assets/profile/IMG_6851.jpg',
+    alt: 'Dafa Ghani profile photo',
   },
 ];
 
@@ -273,7 +269,7 @@ export function HeroSection() {
               <Tilt className="w-full max-w-sm" maxTilt={8} perspective={900}>
                 <TiltContent className="transform-3d transition-shadow duration-300 hover:shadow-2xl">
                   <ProfileCard
-                    src="/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                    src="/assets/profile/foto gwe.jpg"
                     alt="Profile Photo"
                   />
                 </TiltContent>
