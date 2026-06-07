@@ -61,7 +61,7 @@ export const projects: ProjectItem[] = [
     title: 'MediProfen',
     description:
       'A VR Game built with Unity based on SDG 3.c that simulate first aid simulations, aiming to give civil/medical students Emergency Decision Training.',
-    image: '',
+    image: '/assets/projects/mediprofen.png',
     techStack: ['Unity', 'C#', 'Blender 3D', 'Meta Quest 2 VR'],
     githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
     isFeatured: false,
