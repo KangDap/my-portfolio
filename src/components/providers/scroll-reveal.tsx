@@ -48,6 +48,23 @@ function fadeOutItems(
   });
 }
 
+function fadeOutItemsOutsideViewport(
+  items: HTMLElement[],
+  viewportTarget?: HTMLElement,
+) {
+  if (viewportTarget && isInViewport(viewportTarget)) {
+    return;
+  }
+
+  const hiddenItems = items.filter((item) => !isInViewport(item));
+
+  if (hiddenItems.length === 0) {
+    return;
+  }
+
+  fadeOutItems(hiddenItems);
+}
+
 export function ScrollReveal({
   children,
   selector = '[data-scroll-reveal]',
@@ -100,8 +117,8 @@ export function ScrollReveal({
           onEnter: () => revealItems(items, { duration: 0.85, stagger: 0.16 }),
           onEnterBack: () =>
             revealItems(items, { duration: 0.75, stagger: 0.12 }),
-          onLeave: () => fadeOutItems(items),
-          onLeaveBack: () => fadeOutItems(items),
+          onLeave: () => fadeOutItemsOutsideViewport(items, group),
+          onLeaveBack: () => fadeOutItemsOutsideViewport(items, group),
         });
       });
 
@@ -145,10 +162,10 @@ export function ScrollReveal({
           });
         },
         onLeave: (batch) => {
-          fadeOutItems(batch as HTMLElement[]);
+          fadeOutItemsOutsideViewport(batch as HTMLElement[]);
         },
         onLeaveBack: (batch) => {
-          fadeOutItems(batch as HTMLElement[]);
+          fadeOutItemsOutsideViewport(batch as HTMLElement[]);
         },
       });
     }, container);
