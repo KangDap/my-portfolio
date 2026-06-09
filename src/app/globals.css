@@ -242,6 +242,8 @@
 
   html {
     @apply font-sans;
+    user-select: none;
+    cursor: default;
   }
 
   .has-pointer,
