@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
+import { LightRays } from '../ui/light-rays';
+
 export function ContactCtaSection() {
   return (
     <section
@@ -21,6 +23,14 @@ export function ContactCtaSection() {
             </p>
           </div>
           <div className="mt-4 grid gap-6 lg:grid-cols-[1.2fr_auto] lg:items-center">
+            <LightRays
+              count={7}
+              color="rgba(255,255,255,0.12)"
+              blur={42}
+              opacity={0.35}
+              speed={10}
+              length="70vh"
+            />
             <div data-scroll-reveal-item className="flex flex-col gap-3">
               <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
                 Interested in collaborating? Let&apos;s talk.
