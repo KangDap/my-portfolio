@@ -1,5 +1,10 @@
 export type ExperienceCategory = 'works' | 'organization' | 'education';
 
+export type ExperienceMedia = {
+  src: string;
+  alt: string;
+};
+
 export type ExperienceItem = {
   role: string;
   organization: string;
@@ -8,7 +13,7 @@ export type ExperienceItem = {
   location: string;
   highlights: string[];
   skills: string[];
-  media?: string[];
+  media?: Array<string | ExperienceMedia>;
   logoSrc?: string;
   logoAlt?: string;
 };
@@ -40,7 +45,7 @@ export const experiencesByCategory: Record<
         'Create SLR (Systematic Literature Review) related on Neuroscience fields.',
       ],
       skills: ['Neuroscience', 'Literature Review'],
-      media: ['/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg'],
+      media: [],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'AI Lab logo',
     },
@@ -56,7 +61,16 @@ export const experiencesByCategory: Record<
         'Evaluated and compared 3 machine learning models (SVM, Random Forest, XGBoost) based on performance metrics to select the most efficient model.',
       ],
       skills: ['Python', 'Machine Learning', 'EEG', 'Neuroscience'],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/pipp/pipp neuro ai team.jpg',
+          alt: "PIPP - Neuro-AI's Team.",
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/pipp/data collection res.jpg',
+          alt: 'Data Collection via EEG Device.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'PIPP is affiliated with Unpad.',
     },
@@ -83,7 +97,16 @@ export const experiencesByCategory: Record<
         'PHP',
         'Laravel',
       ],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/aspruk/ngajar pbo.png',
+          alt: 'Object-oriented Programming - Online class.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/aspruk/ngajar juga.jpg',
+          alt: 'Object-oriented Programming - Last day teaching.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/edu/Logo Unpad.png',
       logoAlt: 'Teaching assistant for Computer Science FMIPA Unpad.',
     },
@@ -101,7 +124,12 @@ export const experiencesByCategory: Record<
         'Implement GSAP framework to enhance website view.',
       ],
       skills: ['Frontend', 'Next.js', 'GSAP', 'Communication'],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/tedxpu2026/TEDxPU 2026 website.jpeg',
+          alt: 'TEDxPU 2026 Website Associates.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/org/TEDx Logo.jpeg',
       logoAlt: 'AI Lab logo',
     },
@@ -115,7 +143,16 @@ export const experiencesByCategory: Record<
         'Increase organization funding by opening booth on bazzaar.',
       ],
       skills: ['Entrepreneurship', 'Teamwork', 'Communication'],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/warkem/Dafa Ghani Abdul Rabbani (2).png',
+          alt: 'Certification of Appreciation.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/warkem/fundrizz warkem.jpeg',
+          alt: "Fundraising Warta Kema 2025's team.",
+        },
+      ],
       logoSrc: '/assets/experiences-tab/org/logo warta kema.png',
       logoAlt: "Warta Kema Unpad's logo",
     },
@@ -131,7 +168,28 @@ export const experiencesByCategory: Record<
         'Contributed to the success of teams advancing to national and international competition finals, with three teams qualifying as finalists.',
       ],
       skills: ['Program Management', 'Communication'],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/pti/mentoring datsci.jpg',
+          alt: 'Incubate-TI 2025 - Data Science Mentoring.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/pti/pti 2025 LAST MEET.jpg',
+          alt: "IT Development 2025's Team.",
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/pti/sertif pti 2025.png',
+          alt: 'Certificate 2025.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/pti/pti 2024.jpg',
+          alt: "IT Development 2024's Team.",
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/pti/Staf Departemen PTI - 230022.png',
+          alt: 'Certificate 2024.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/org/logohimatif.png',
       logoAlt: 'AI Lab logo',
     },
@@ -152,7 +210,20 @@ export const experiencesByCategory: Record<
         'Communication',
         'Competition',
       ],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2025/hackathon day.jpg',
+          alt: 'Hackathon Day IFEST 2025.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2025/it competition team.jpg',
+          alt: "IT Competition IFEST 2025's Team.",
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2025/sertif.png',
+          alt: 'Certificate.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/org/Logo IFEST 2025.png',
       logoAlt: 'IFEST 2025',
     },
@@ -173,7 +244,20 @@ export const experiencesByCategory: Record<
         'Problemsetter',
         'Competition',
       ],
-      media: [],
+      media: [
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2024/awarding.jpg',
+          alt: 'IT Competition 2024 Awarding Session.',
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2024/itcomp 2024 team.jpg',
+          alt: "IT Competition IFEST 2024's Team.",
+        },
+        {
+          src: '/assets/experiences-tab/experience-card/itcomp 2024/Dafa Ghani Abdul Rabbani.png',
+          alt: 'Certificate.',
+        },
+      ],
       logoSrc: '/assets/experiences-tab/org/Logo_IFest_2024.png',
       logoAlt: 'IFEST 2024',
     },
