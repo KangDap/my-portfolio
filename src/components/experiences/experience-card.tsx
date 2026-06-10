@@ -161,7 +161,7 @@ export function ExperienceCard({
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
       <article
         className={cn(
-          'relative flex flex-col rounded-xl border border-border bg-card shadow-sm',
+          'relative flex flex-col rounded-xl border border-border bg-card/70 shadow-sm',
           isOngoing && 'border-transparent',
         )}
       >

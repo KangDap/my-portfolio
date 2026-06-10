@@ -83,7 +83,7 @@ const aboutStackImages = [
 
 function ProfileCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card/70 shadow-lg">
       <div className="pointer-events-none relative aspect-square w-full">
         <Image
           src={src}

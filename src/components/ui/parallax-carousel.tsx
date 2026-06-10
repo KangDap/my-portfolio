@@ -195,7 +195,7 @@ export function ParallaxCarousel({ images, className }: ParallaxCarouselProps) {
     >
       <div
         ref={emblaRef}
-        className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
+        className="overflow-hidden rounded-2xl border border-border bg-card/70 shadow-lg"
       >
         <div className="flex touch-pan-y">
           {images.map((image) => (
