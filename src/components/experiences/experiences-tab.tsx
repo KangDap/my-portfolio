@@ -270,7 +270,7 @@ export function ExperiencesTab() {
           </TabsList>
         </TabsHighlight>
 
-        <div className="rounded-xl border border-border bg-background/70 p-6">
+        <div className="rounded-xl border border-border bg-card/70 p-6">
           <TabPanels activeTab={activeTab} />
         </div>
       </Tabs>

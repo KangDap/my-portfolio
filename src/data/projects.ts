@@ -36,7 +36,7 @@ export const projects: ProjectItem[] = [
       'FastAPI',
       'Apriori Algorithm',
     ],
-    liveLink: 'https://example.com/neuro-pulse',
+    liveLink: 'https://care-connect-ten-hazel.vercel.app/',
     githubLink: 'https://github.com/KangDap/care-connect',
     isFeatured: true,
   },
@@ -61,7 +61,7 @@ export const projects: ProjectItem[] = [
     title: 'MediProfen',
     description:
       'A VR Game built with Unity based on SDG 3.c that simulate first aid simulations, aiming to give civil/medical students Emergency Decision Training.',
-    image: '',
+    image: '/assets/projects/mediprofen.png',
     techStack: ['Unity', 'C#', 'Blender 3D', 'Meta Quest 2 VR'],
     githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
     isFeatured: false,
@@ -77,7 +77,7 @@ export const projects: ProjectItem[] = [
       'Fuzzy Inference System',
       'Genetic Algorithm',
     ],
-    githubLink: 'https://github.com/yumairai/MediProfen_KotakP3K_IMK7',
+    githubLink: 'https://github.com/KangDap/aerosweep',
     isFeatured: false,
   },
   {

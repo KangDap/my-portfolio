@@ -1,5 +1,6 @@
 'use client';
 
+import { ExperienceMediaCarousel } from '@/components/experiences/experience-media-carousel';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -160,7 +161,7 @@ export function ExperienceCard({
     <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
       <article
         className={cn(
-          'relative flex flex-col rounded-xl border border-border bg-card shadow-sm',
+          'relative flex flex-col rounded-xl border border-border bg-card/70 shadow-sm',
           isOngoing && 'border-transparent',
         )}
       >
@@ -257,21 +258,10 @@ export function ExperienceCard({
               </ul>
 
               {media?.length ? (
-                <div className="flex flex-wrap gap-3">
-                  {media.map((src, index) => (
-                    <div
-                      key={src}
-                      className="relative aspect-video w-24 overflow-hidden rounded-md border border-border bg-muted/40"
-                    >
-                      <Image
-                        src={src}
-                        alt={`${role} media ${index + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
+                <ExperienceMediaCarousel
+                  media={media}
+                  fallbackAlt={`${role} at ${organization}`}
+                />
               ) : null}
 
               <div className="flex flex-wrap items-center gap-2">

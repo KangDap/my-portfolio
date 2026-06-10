@@ -68,26 +68,22 @@ const socialLinks = [
 
 const aboutStackImages = [
   {
-    src: '/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg',
+    src: '/assets/profile/IMG_3492.jpg',
     alt: 'Dafa Ghani profile photo',
   },
   {
-    src: '/assets/profile/ganyu geming.jpg',
-    alt: 'TEDx Padjadjaran University 2026 project preview',
+    src: '/assets/profile/IMG_0238.jpg',
+    alt: 'Dafa Ghani profile photo',
   },
   {
-    src: '/assets/profile/aaaaaa.jpg',
-    alt: 'Care Connect project preview',
-  },
-  {
-    src: '/assets/profile/estehmanis.jpg',
-    alt: 'Neuro AI project preview',
+    src: '/assets/profile/bali-14.jpg',
+    alt: 'Dafa Ghani profile photo',
   },
 ];
 
 function ProfileCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card/70 shadow-lg">
       <div className="pointer-events-none relative aspect-square w-full">
         <Image
           src={src}
@@ -225,7 +221,7 @@ export function HeroSection() {
               <div data-scroll-reveal-item className="flex flex-col gap-3">
                 <p
                   ref={welcomeRef}
-                  className="text-lg uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
+                  className="text-2xl uppercase tracking-[0.32em] text-muted-foreground min-w-[10rem]"
                 >
                   {WELCOME_TEXTS[0]}
                 </p>
@@ -273,7 +269,7 @@ export function HeroSection() {
               <Tilt className="w-full max-w-sm" maxTilt={8} perspective={900}>
                 <TiltContent className="transform-3d transition-shadow duration-300 hover:shadow-2xl">
                   <ProfileCard
-                    src="/assets/profile/45108c4c13057e9afdb7a6517bac32c9.jpg"
+                    src="/assets/profile/IMG_6851.jpg"
                     alt="Profile Photo"
                   />
                 </TiltContent>
