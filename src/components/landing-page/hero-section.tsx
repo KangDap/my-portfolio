@@ -76,7 +76,7 @@ const aboutStackImages = [
     alt: 'Dafa Ghani profile photo',
   },
   {
-    src: '/assets/profile/IMG_6851.jpg',
+    src: '/assets/profile/bali-14.jpg',
     alt: 'Dafa Ghani profile photo',
   },
 ];
@@ -269,7 +269,7 @@ export function HeroSection() {
               <Tilt className="w-full max-w-sm" maxTilt={8} perspective={900}>
                 <TiltContent className="transform-3d transition-shadow duration-300 hover:shadow-2xl">
                   <ProfileCard
-                    src="/assets/profile/foto gwe.jpg"
+                    src="/assets/profile/IMG_6851.jpg"
                     alt="Profile Photo"
                   />
                 </TiltContent>
