@@ -2,6 +2,12 @@ import { GitHubActivitiesCalendar } from '@/components/landing-page/github-activ
 import { FaGithub } from 'react-icons/fa';
 
 export function GitHubActivitiesSection() {
+  const githubUsername = process.env.GITHUB_USERNAME;
+
+  if (!githubUsername) {
+    return null;
+  }
+
   return (
     <section
       id="github-activities"
@@ -18,7 +24,7 @@ export function GitHubActivitiesSection() {
           </p>
         </div>
         <div data-scroll-reveal-item>
-          <GitHubActivitiesCalendar />
+          <GitHubActivitiesCalendar username={githubUsername} />
         </div>
       </div>
     </section>
