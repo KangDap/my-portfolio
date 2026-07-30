@@ -12,6 +12,20 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
   {
+    title:
+      'Multimodal Deep Learning Framework for Short-Term Flood Forecasting with IoT-Based Sensing and Mobile Early Warning System',
+    description:
+      'AI-based flood forecasting framework integrating IoT hydrological sensors, satellite rainfall estimation (GSMaP/GPM IMERG), Digital Elevation Models (DEMNAS), and historical flood records.',
+    image: '/assets/projects/datathon-ristek-2026.png',
+    techStack: ['Python', 'Internet of Things', 'Transformer'],
+    liveLink: '',
+    githubLink: '',
+    paperLink:
+      'https://drive.google.com/file/d/1LN9wUpvu1Uoaa9b60cVQ-sn1BL3qe-bt/view?usp=sharing',
+    notebookLink: '',
+    isFeatured: false,
+  },
+  {
     title: 'TEDxPadjadjaran University 2026 Website',
     description:
       'The official website of TEDxPadjadjaran University 2026, providing information about TEDx pre-event and main event, local speaker application, and ticketing.',
@@ -44,7 +58,7 @@ export const projects: ProjectItem[] = [
     title: 'NusaGraph',
     description:
       'Website for exploring Indonesian geographic entities through semantic search, RDF-based data representation, GeoNames Ontology, and SPARQL query exploration.',
-    image: '',
+    image: '/assets/projects/nusagraph.png',
     techStack: [
       'Next.js',
       'Tailwind CSS',
@@ -53,7 +67,7 @@ export const projects: ProjectItem[] = [
       'GeoNames',
       'Leaflet JS',
     ],
-    liveLink: 'https://example.com/neuro-pulse',
+    liveLink: 'https://nusagraph.vercel.app',
     githubLink: 'https://github.com/Kurtz17/NusaGraph',
     isFeatured: false,
   },
@@ -67,17 +81,50 @@ export const projects: ProjectItem[] = [
     isFeatured: false,
   },
   {
+    title: 'Human Pose Detection',
+    description:
+      'Implements human pose estimation using the OpenPose deep learning model with OpenCV DNN and built with Streamlit interface.',
+    image: '/assets/projects/human-pose-detect.png',
+    techStack: ['Python', 'Computer Vision', 'OpenPose'],
+    liveLink: 'https://humanposedetect.streamlit.app',
+    githubLink: 'https://github.com/KangDap/human-pose-detection',
+    paperLink: '',
+    notebookLink: '',
+    isFeatured: false,
+  },
+  {
     title: 'Aerosweep',
     description:
       'A Neuro-Fuzzy Hybrid System to detect and clustering waste using UAV view, using ANN and Fuzzy Inference optimized by Genetic Algorithm.',
-    image: '',
+    image: '/assets/projects/aerosweep.png',
     techStack: [
       'Python',
       'Artificial Neural Network',
       'Fuzzy Inference System',
       'Genetic Algorithm',
     ],
+    liveLink: 'https://aerosweep.streamlit.app',
     githubLink: 'https://github.com/KangDap/aerosweep',
+    paperLink: '',
+    notebookLink: '',
+    isFeatured: false,
+  },
+  {
+    title: 'Credit Risk Intelligence Battle',
+    description:
+      'A comparative study to evaluate credit risk prediction using fuzzy inference and Artificial Intelligence Learning (ANN) optimized by Genetic Algorithm (GA).',
+    image: '/assets/projects/crib.png',
+    techStack: [
+      'Python',
+      'Artificial Neural Network',
+      'Fuzzy Inference System',
+      'Genetic Algorithm',
+    ],
+    liveLink: 'https://credit-risk-intelligence-battle.streamlit.app',
+    githubLink:
+      'https://github.com/Hafizh220705/credit-risk-intelligence-battle',
+    paperLink: '',
+    notebookLink: '',
     isFeatured: false,
   },
   {
@@ -103,10 +150,24 @@ export const projects: ProjectItem[] = [
     isFeatured: false,
   },
   {
+    title:
+      'Public Sentiment Analysis on the Policies of the Newly Appointed Minister of Finance Using LLM-Based Processing of YouTube Comments',
+    description:
+      "Sentiment analysis project on Indonesia's New Minister of Finance policies by scraping YouTube comments, using IndoBERT model.",
+    image: '/assets/projects/datmin-project.jpeg',
+    techStack: ['Python', 'IndoBERT'],
+    liveLink: '',
+    githubLink: '',
+    paperLink:
+      'https://drive.google.com/file/d/1wYaUYYKvj0eFs0JD-3baHY2Gp1AZyeFY/view?usp=drivesdk',
+    notebookLink: '',
+    isFeatured: false,
+  },
+  {
     title: 'COREN: Clustering and Recommendation',
     description:
       'A web-based customer segmentation application using RFM analysis and K-Means clustering to support data-driven marketing strategies.',
-    image: '',
+    image: '/assets/projects/coren.png',
     techStack: [
       'HTML',
       'CSS',
@@ -141,6 +202,19 @@ export const projects: ProjectItem[] = [
   },
   {
     title:
+      "Clustering Interests and Talents of Universitas Padjadjaran's Students using Data Mining",
+    description:
+      "Clusters Universitas Padjadjaran's students based on its interest and talents with many variables, using three methods including K-Means, Hierarchial Clustering, and DBSCAN.",
+    image: '/assets/projects/rodaza-mining.png',
+    techStack: ['Python', 'K-Means Clustering', 'DBSCAN'],
+    liveLink: '',
+    githubLink: '',
+    paperLink:
+      'https://drive.google.com/file/d/1jvBoJw76G7GXtgETLWrSsErWMjB30DKC/view?usp=sharing',
+    isFeatured: false,
+  },
+  {
+    title:
       'Sentiment Analysis of Halodoc App Reviews Using a Convolutional Neural Network (CNN) Model with the Lexicon-Based Labeling Method',
     description:
       'Sentiment analysis project on Halodoc app reviews using a Convolutional Neural Network (CNN) model with lexicon-based automatic labeling.',
@@ -148,7 +222,8 @@ export const projects: ProjectItem[] = [
     techStack: ['Python', 'CNN', 'Lexicon', 'NLTK', 'Sastrawi'],
     liveLink: '',
     githubLink: 'https://github.com/abdazizhamud/dapa-ganteng-datathon-ristek',
-    paperLink: '',
+    paperLink:
+      'https://drive.google.com/file/d/1tArcVrt9ty9pZ3A_9dcRkCtESZWv0AXR/view?usp=sharing',
     notebookLink: '',
     isFeatured: false,
   },
@@ -162,6 +237,18 @@ export const projects: ProjectItem[] = [
     githubLink: '',
     paperLink:
       'https://drive.google.com/file/d/1T9nWYb84cC_cHhWXqTtw8EvLqsIJ1Q5o/view?usp=sharing',
+    notebookLink: '',
+    isFeatured: false,
+  },
+  {
+    title: 'Smart Parking Detection System',
+    description:
+      'A web-based application developed using Streamlit and a Convolutional Neural Network (CNN) to detect whether parking slots in an image are occupied or empty. The system detects each parking slot based on predefined coordinates and visually displays the results.',
+    image: '/assets/projects/spds.png',
+    techStack: ['Python', 'CNN', 'Streamlit'],
+    liveLink: '',
+    githubLink: 'https://github.com/KangDap/smart-parking-detection-system',
+    paperLink: '',
     notebookLink: '',
     isFeatured: false,
   },
