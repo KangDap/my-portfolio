@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   type SocialCard,
@@ -66,9 +65,9 @@ export function ContactDetailsSection() {
   return (
     <div className="flex flex-col gap-6">
       <div data-scroll-reveal-item className="flex flex-col gap-8">
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <Badge variant="secondary">Open to collaboration</Badge>
-        </div>
+        </div> */}
         <div className="grid gap-3 sm:grid-cols-2">
           {contactInfoItems.map((item) => {
             const Icon = infoIconMap[item.icon];

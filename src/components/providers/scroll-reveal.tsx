@@ -85,6 +85,9 @@ export function ScrollReveal({
         const items = Array.from(
           group.querySelectorAll<HTMLElement>('[data-scroll-reveal-item]'),
         );
+        const repeatableItems = items.filter(
+          (item) => !item.hasAttribute('data-scroll-reveal-once'),
+        );
 
         if (items.length === 0) return;
 
@@ -106,8 +109,8 @@ export function ScrollReveal({
           onEnter: () => revealItems(items, { duration: 0.85, stagger: 0.16 }),
           onEnterBack: () =>
             revealItems(items, { duration: 0.75, stagger: 0.12 }),
-          onLeave: () => fadeOutItemsDuringScroll(items),
-          onLeaveBack: () => fadeOutItemsDuringScroll(items),
+          onLeave: () => fadeOutItemsDuringScroll(repeatableItems),
+          onLeaveBack: () => fadeOutItemsDuringScroll(repeatableItems),
         });
       });
 

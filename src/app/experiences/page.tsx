@@ -38,7 +38,7 @@ export default function ExperiencePage() {
                 and collaborate.
               </p>
             </div>
-            <div data-scroll-reveal-item>
+            <div data-scroll-reveal-item data-scroll-reveal-once>
               <ExperiencesTab />
             </div>
           </div>
